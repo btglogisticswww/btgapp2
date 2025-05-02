@@ -75,7 +75,7 @@ export default function CarriersPage() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-              <Button variant="outline" size="icon" onClick={() => refetch()}>
+              <Button variant="ghost" size="icon" onClick={() => refetch()}>
                 <RefreshCw className="h-4 w-4" />
               </Button>
             </div>
@@ -150,7 +150,7 @@ export default function CarriersPage() {
                     : t("no_carriers_yet")}
                 </p>
                 {searchQuery ? (
-                  <Button variant="outline" onClick={() => setSearchQuery("")}>  
+                  <Button variant="ghost" onClick={() => setSearchQuery("")}>  
                     {t("clear_search")}
                   </Button>
                 ) : (

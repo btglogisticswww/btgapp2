@@ -243,7 +243,7 @@ export function ClientDialog({ open, client, onClose }: ClientDialogProps) {
             <DialogFooter>
               <Button
                 type="button"
-                variant="outline"
+                variant="ghost"
                 onClick={handleDialogClose}
                 disabled={isSubmitting}
               >
