@@ -263,7 +263,7 @@ export function CarrierDialog({ open, carrier, onClose }: CarrierDialogProps) {
             <DialogFooter>
               <Button
                 type="button"
-                variant="outline"
+                variant="ghost"
                 onClick={handleDialogClose}
                 disabled={isSubmitting}
               >

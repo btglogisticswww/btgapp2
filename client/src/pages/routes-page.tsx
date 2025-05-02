@@ -45,7 +45,7 @@ export default function RoutesPage() {
         <h1 className="text-xl font-semibold text-foreground">{t("routesManagement")}</h1>
         
         <div className="flex space-x-3">
-          <Button variant="outline" className="flex items-center gap-2">
+          <Button variant="ghost" className="flex items-center gap-2">
             <SlidersHorizontal className="h-4 w-4" />
             {t("filters")}
           </Button>
@@ -87,7 +87,7 @@ export default function RoutesPage() {
                           {route.startPoint} → {route.endPoint}
                         </h3>
                         <Badge 
-                          variant="outline" 
+                          variant="secondary" 
                           className={`${statusColors.bg} ${statusColors.text} border-0`}
                         >
                           {t(route.status)}
@@ -140,7 +140,7 @@ export default function RoutesPage() {
                       <div className="flex justify-between items-center">
                         <h3 className="text-sm font-medium text-foreground">{vehicle.type}</h3>
                         <Badge 
-                          variant="outline" 
+                          variant="secondary" 
                           className={`${statusColors.bg} ${statusColors.text} border-0`}
                         >
                           {t(vehicle.status)}
@@ -170,17 +170,17 @@ export default function RoutesPage() {
               <CardTitle className="text-sm font-medium">{t("routesMap")}</CardTitle>
               
               <div className="flex space-x-2">
-                <Button variant="outline" size="sm" className="h-8 px-2 text-xs">
+                <Button variant="secondary" size="sm" className="h-8 px-2 text-xs">
                   <Search className="h-3 w-3 mr-1" />
                   {t("find")}
                 </Button>
                 
-                <Button variant="outline" size="sm" className="h-8 px-2 text-xs">
+                <Button variant="secondary" size="sm" className="h-8 px-2 text-xs">
                   <SlidersHorizontal className="h-3 w-3 mr-1" />
                   {t("filter")}
                 </Button>
                 
-                <Button variant="outline" size="sm" className="h-8 px-2 text-xs">
+                <Button variant="secondary" size="sm" className="h-8 px-2 text-xs">
                   <Maximize className="h-3 w-3 mr-1" />
                   {t("scale")}
                 </Button>
@@ -264,7 +264,7 @@ export default function RoutesPage() {
                     <div>
                       <h3 className="text-sm text-muted-foreground mb-1">{t("status")}</h3>
                       <Badge 
-                        variant="outline" 
+                        variant="secondary" 
                         className={`${getStatusColors(selectedRoute.status).bg} ${getStatusColors(selectedRoute.status).text} border-0`}
                       >
                         {t(selectedRoute.status)}
