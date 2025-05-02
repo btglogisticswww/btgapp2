@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLanguage } from "@/hooks/use-language";
 import { useToast } from "@/hooks/use-toast";
-import Layout from "@/components/layout/Layout";
+import MainLayout from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -51,7 +51,7 @@ export default function ClientsPage() {
   };
 
   return (
-    <Layout>
+    <MainLayout title={t("clients")}>
       <div className="p-6 space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">{t("clients")}</h1>
@@ -164,6 +164,6 @@ export default function ClientsPage() {
         client={selectedClient}
         onClose={handleCloseDialog}
       />
-    </Layout>
+    </MainLayout>
   );
 }
