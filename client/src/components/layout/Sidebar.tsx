@@ -52,8 +52,8 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
     >
       <div className="flex items-center justify-between p-4 bg-primary h-16">
         <div className="flex items-center">
-          <div className="flex h-9 w-14 items-center justify-center px-2.5 py-1.5">
-            <span className="text-xl font-bold text-white border border-white/50 px-1.5 rounded">БТГ+</span>
+          <div className="flex h-9 w-14 items-center justify-center border border-white/50">
+            <span className="text-lg font-medium text-white">БТГ+</span>
           </div>
           {!collapsed && (
             <div className="ml-3">
