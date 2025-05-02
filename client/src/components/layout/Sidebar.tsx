@@ -52,7 +52,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
     >
       <div className="flex items-center justify-between p-4 bg-primary h-16">
         <div className="flex items-center">
-          <div className="flex h-9 w-12 items-center justify-center rounded bg-white text-primary p-1.5">
+          <div className="flex h-9 w-14 items-center justify-center rounded bg-white text-primary px-2.5 py-1.5">
             <span className="text-xl font-bold">БТГ+</span>
           </div>
           {!collapsed && (
@@ -98,7 +98,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
       <div className="p-4 border-t border-sidebar-border bg-primary">
         <div className="flex items-center">
           <div className="flex-shrink-0">
-            <div className="h-9 w-9 rounded-full bg-white flex items-center justify-center text-primary p-1.5">
+            <div className="h-9 w-9 rounded-full bg-white flex items-center justify-center text-primary px-2.5 py-1.5">
               <span className="font-medium">{user ? getInitials(user.fullName) : "U"}</span>
             </div>
           </div>
