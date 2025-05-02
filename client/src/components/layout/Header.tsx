@@ -23,24 +23,24 @@ export default function Header({ title, toggleSidebar, toggleNotificationPanel }
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   
   return (
-    <header className="bg-sidebar-accent dark:bg-sidebar-accent border-b border-border h-16 flex items-center z-10 sticky top-0">
+    <header className="bg-secondary text-white border-b border-border h-16 flex items-center z-10 sticky top-0">
       <div className="flex-1 flex items-center justify-between px-4">
         <div className="flex items-center">
           <button 
             onClick={toggleSidebar}
-            className="mr-4 md:hidden text-sidebar-foreground hover:text-sidebar-foreground/70 focus:outline-none"
+            className="mr-4 md:hidden text-white hover:text-white/70 focus:outline-none"
             aria-label="Toggle sidebar"
           >
             <Menu className="h-6 w-6" />
           </button>
-          <h1 className="text-xl font-semibold text-sidebar-foreground dark:text-sidebar-foreground">{title}</h1>
+          <h1 className="text-xl font-semibold text-white">{title}</h1>
         </div>
         
         <div className="flex items-center space-x-4">
           {/* Language Selector */}
           <div className="relative">
             <button 
-              className="flex items-center text-sidebar-foreground hover:text-sidebar-foreground/70"
+              className="flex items-center text-white hover:text-white/70"
               onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
             >
               <span className="text-sm mr-1">
@@ -84,7 +84,7 @@ export default function Header({ title, toggleSidebar, toggleNotificationPanel }
           
           {/* Notifications */}
           <button 
-            className="relative text-sidebar-foreground hover:text-sidebar-foreground/70"
+            className="relative text-white hover:text-white/70"
             onClick={toggleNotificationPanel}
             aria-label="Notifications"
           >
@@ -94,7 +94,7 @@ export default function Header({ title, toggleSidebar, toggleNotificationPanel }
           
           {/* Messages */}
           <button 
-            className="text-sidebar-foreground hover:text-sidebar-foreground/70"
+            className="text-white hover:text-white/70"
             aria-label="Messages"
           >
             <MessageSquare className="h-6 w-6" />
@@ -102,7 +102,7 @@ export default function Header({ title, toggleSidebar, toggleNotificationPanel }
           
           {/* Theme Toggle */}
           <button 
-            className="text-sidebar-foreground hover:text-sidebar-foreground/70"
+            className="text-white hover:text-white/70"
             onClick={toggleTheme}
             aria-label={theme === "light" ? t("darkMode") : t("lightMode")}
           >
