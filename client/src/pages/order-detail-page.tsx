@@ -210,12 +210,12 @@ export default function OrderDetailPage() {
               </Button>
             </Link>
             <h1 className="text-2xl font-bold">{t('orderDetails')}</h1>
-            <Badge className={`${statusColors.bg} ${statusColors.text}`}>
+            <Badge variant="secondary" className={`${statusColors.bg} ${statusColors.text} border-0`}>
               {t(status)}
             </Badge>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline">
+            <Button variant="ghost">
               <FileEdit className="mr-2 h-4 w-4" />
               {t('edit')}
             </Button>
@@ -389,7 +389,7 @@ export default function OrderDetailPage() {
                 </CardContent>
                 <CardFooter className="flex justify-end">
                   <Link href={`/clients/${client.id}`}>
-                    <Button variant="outline">
+                    <Button variant="ghost">
                       {t('viewClientProfile')}
                     </Button>
                   </Link>
@@ -412,7 +412,7 @@ export default function OrderDetailPage() {
                     <CardHeader>
                       <div className="flex items-center justify-between">
                         <CardTitle className="text-lg">{route.startPoint} → {route.endPoint}</CardTitle>
-                        <Badge className={`${getStatusColors(route.status).bg} ${getStatusColors(route.status).text}`}>
+                        <Badge variant="secondary" className={`${getStatusColors(route.status).bg} ${getStatusColors(route.status).text} border-0`}>
                           {t(route.status)}
                         </Badge>
                       </div>
@@ -483,7 +483,7 @@ export default function OrderDetailPage() {
                     </CardContent>
                     <CardFooter className="flex justify-end">
                       <Link href={`/routes/${route.id}`}>
-                        <Button variant="outline">
+                        <Button variant="ghost">
                           {t('viewRouteDetails')}
                         </Button>
                       </Link>
@@ -554,7 +554,7 @@ export default function OrderDetailPage() {
                     </CardContent>
                     <CardFooter className="flex justify-end">
                       <Link href={`/carriers/${carrier.id}`}>
-                        <Button variant="outline">
+                        <Button variant="ghost">
                           {t('viewCarrierProfile')}
                         </Button>
                       </Link>

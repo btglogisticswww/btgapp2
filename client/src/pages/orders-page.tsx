@@ -91,7 +91,7 @@ export default function OrdersPage() {
         </div>
         
         <div className="flex gap-2 w-full sm:w-auto">
-          <Button variant="outline" className="flex items-center gap-2 w-full sm:w-auto">
+          <Button variant="ghost" className="flex items-center gap-2 w-full sm:w-auto">
             <SlidersHorizontal className="h-4 w-4" />
             {t("filters")}
           </Button>
@@ -149,7 +149,7 @@ export default function OrdersPage() {
                             <TableCell>{order.route}</TableCell>
                             <TableCell>
                               <Badge 
-                                variant="outline" 
+                                variant="secondary" 
                                 className={`${statusColors.bg} ${statusColors.text} border-0`}
                               >
                                 {t(order.status)}
@@ -197,7 +197,7 @@ export default function OrdersPage() {
                     </Link>
                   </span>
                   <Badge 
-                    variant="outline" 
+                    variant="secondary" 
                     className={`${getStatusColors(selectedOrder.status).bg} ${getStatusColors(selectedOrder.status).text} border-0`}
                   >
                     {t(selectedOrder.status)}
