@@ -108,6 +108,9 @@ const translations: Record<Language, Record<string, string>> = {
     "docs": "Документы",
     "event": "Событие",
     "time": "Время",
+    "additionalInfo": "Дополнительная информация",
+    "orderHasAdditionalDetails": "Заказ содержит дополнительную информацию",
+    "viewDetailedInfo": "Просмотреть подробную информацию",
     
     // Routes page
     "routesManagement": "Управление маршрутами",
@@ -307,6 +310,9 @@ const translations: Record<Language, Record<string, string>> = {
     "docs": "Documents",
     "event": "Event",
     "time": "Time",
+    "additionalInfo": "Additional Information",
+    "orderHasAdditionalDetails": "Order has additional information",
+    "viewDetailedInfo": "View detailed information",
     
     // Routes page
     "routesManagement": "Routes Management",
@@ -506,6 +512,9 @@ const translations: Record<Language, Record<string, string>> = {
     "docs": "Dokumente",
     "event": "Ereignis",
     "time": "Zeit",
+    "additionalInfo": "Zusätzliche Informationen",
+    "orderHasAdditionalDetails": "Auftrag enthält zusätzliche Informationen",
+    "viewDetailedInfo": "Detaillierte Informationen anzeigen",
     
     // Routes page
     "routesManagement": "Routenverwaltung",
