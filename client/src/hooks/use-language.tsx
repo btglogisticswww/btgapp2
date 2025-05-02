@@ -168,6 +168,28 @@ const translations: Record<Language, Record<string, string>> = {
     "client_created_desc": "Новый клиент успешно добавлен в систему",
     "client_updated_desc": "Данные клиента успешно обновлены",
 
+    // Carriers page
+    "carrier_list": "Список перевозчиков",
+    "manage_carriers_desc": "Управление перевозчиками и их данными",
+    "add_carrier": "Добавить перевозчика",
+    "edit_carrier": "Редактировать перевозчика",
+    "add_new_carrier": "Добавить нового перевозчика",
+    "edit_carrier_desc": "Редактирование информации о перевозчике",
+    "add_carrier_desc": "Добавление нового перевозчика в систему",
+    "carrier_name": "Название перевозчика",
+    "vehicle_type": "Тип транспорта",
+    "enter_carrier_name": "Введите название перевозчика",
+    "enter_vehicle_type": "Введите тип транспорта",
+    "search_carriers": "Поиск перевозчиков",
+    "no_carriers_found": "Перевозчики не найдены",
+    "no_carriers_match_filter": "Нет перевозчиков, соответствующих фильтру",
+    "no_carriers_yet": "Перевозчики еще не добавлены",
+    "add_first_carrier": "Добавить первого перевозчика",
+    "carrier_created": "Перевозчик создан",
+    "carrier_updated": "Перевозчик обновлен",
+    "carrier_created_desc": "Новый перевозчик успешно добавлен в систему",
+    "carrier_updated_desc": "Данные перевозчика успешно обновлены",
+
     // Other
     "logout": "Выход",
     "profile": "Профиль",
