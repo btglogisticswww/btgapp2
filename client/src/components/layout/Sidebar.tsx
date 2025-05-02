@@ -53,7 +53,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
       <div className="flex items-center justify-between p-4 bg-primary h-16">
         <div className="flex items-center">
           <div className="flex h-9 w-12 items-center justify-center rounded bg-white text-primary">
-            <span className="text-xl font-bold">БТГ+</span>
+            <span className="text-xl font-bold px-1.5 py-0.5">БТГ+</span>
           </div>
           {!collapsed && (
             <div className="ml-3">
@@ -75,13 +75,13 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
       </div>
       
       <div className="overflow-y-auto custom-scrollbar flex-1">
-        <nav className="mt-4 px-2">
+        <nav className="mt-4 px-4">
           <div className="space-y-0.5">
             {navItems.map((item) => (
               <Link 
                 key={item.path} 
                 href={item.path}
-                className={`flex items-center justify-start px-3 h-10 text-sm font-medium rounded-md ${
+                className={`flex items-center justify-start px-4 h-10 text-sm font-medium rounded-md ${
                   location === item.path 
                     ? "text-sidebar-primary bg-sidebar-accent" 
                     : "text-sidebar-foreground hover:bg-sidebar-accent/50"
