@@ -23,7 +23,7 @@ export default function Header({ title, toggleSidebar, toggleNotificationPanel }
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   
   return (
-    <header className="bg-secondary text-white border-b border-border h-16 flex items-center z-10 sticky top-0">
+    <header className="bg-secondary text-white h-16 flex items-center z-10 sticky top-0">
       <div className="flex-1 flex items-center justify-between px-4">
         <div className="flex items-center">
           <button 

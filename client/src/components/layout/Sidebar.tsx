@@ -46,7 +46,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
 
   return (
     <aside 
-      className={`animate-sidebar bg-sidebar text-sidebar-foreground border-r border-sidebar-border h-full flex flex-col shadow-md z-20 transition-all duration-300 ${
+      className={`animate-sidebar bg-sidebar text-sidebar-foreground h-full flex flex-col z-20 transition-all duration-300 ${
         collapsed ? "w-20" : "w-64"
       }`}
     >
