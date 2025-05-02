@@ -22,8 +22,8 @@ export default function OrdersTable({ limit = 4, showViewAll = true }: OrdersTab
   
   if (isLoading) {
     return (
-      <div className="bg-card rounded-lg shadow-sm overflow-hidden">
-        <div className="px-4 py-3 bg-muted border-b border-border flex justify-between items-center">
+      <div className="bg-card rounded-lg overflow-hidden">
+        <div className="px-4 py-3 bg-muted flex justify-between items-center">
           <h2 className="text-sm font-medium text-foreground">{t("recentOrders")}</h2>
           {showViewAll && (
             <Link href="/orders" className="text-sm text-primary hover:text-primary/80">
@@ -40,8 +40,8 @@ export default function OrdersTable({ limit = 4, showViewAll = true }: OrdersTab
   
   if (error) {
     return (
-      <div className="bg-card rounded-lg shadow-sm overflow-hidden">
-        <div className="px-4 py-3 bg-muted border-b border-border">
+      <div className="bg-card rounded-lg overflow-hidden">
+        <div className="px-4 py-3 bg-muted">
           <h2 className="text-sm font-medium text-foreground">{t("recentOrders")}</h2>
         </div>
         <div className="p-4 text-destructive">
@@ -52,8 +52,8 @@ export default function OrdersTable({ limit = 4, showViewAll = true }: OrdersTab
   }
   
   return (
-    <div className="bg-card rounded-lg shadow-sm overflow-hidden">
-      <div className="px-4 py-3 bg-muted border-b border-border flex justify-between items-center">
+    <div className="bg-card rounded-lg overflow-hidden">
+      <div className="px-4 py-3 bg-muted flex justify-between items-center">
         <h2 className="text-sm font-medium text-foreground">{t("recentOrders")}</h2>
         {showViewAll && (
           <Link href="/orders" className="text-sm text-primary hover:text-primary/80">
@@ -64,7 +64,7 @@ export default function OrdersTable({ limit = 4, showViewAll = true }: OrdersTab
       
       <div className="overflow-x-auto">
         {displayedOrders && displayedOrders.length > 0 ? (
-          <table className="min-w-full divide-y divide-border">
+          <table className="min-w-full">
             <thead className="bg-muted">
               <tr>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
@@ -87,7 +87,7 @@ export default function OrdersTable({ limit = 4, showViewAll = true }: OrdersTab
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-card divide-y divide-border">
+            <tbody className="bg-card">
               {displayedOrders.map((order) => {
                 const statusColors = getStatusColors(order.status);
                 return (
@@ -121,9 +121,9 @@ export default function OrdersTable({ limit = 4, showViewAll = true }: OrdersTab
       </div>
       
       {displayedOrders && displayedOrders.length > 0 && (
-        <div className="px-4 py-3 bg-muted border-t border-border flex items-center justify-between">
+        <div className="px-4 py-3 bg-muted flex items-center justify-between">
           <div className="flex-1 flex justify-between sm:hidden">
-            <button className="relative inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-md text-foreground bg-card hover:bg-muted">
+            <button className="relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-foreground bg-card hover:bg-muted">
               {t("previous")}
             </button>
             <button className="ml-3 relative inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-md text-foreground bg-card hover:bg-muted">
