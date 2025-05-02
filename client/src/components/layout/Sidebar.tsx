@@ -53,8 +53,8 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
       <div className="flex items-center justify-between p-4 bg-primary h-16">
         <div className="flex items-center">
           <div className="flex h-10 w-10 items-center justify-center relative">
-            <div className="absolute h-10 w-10 border border-white -left-[3px]"></div>
-            <span className="text-lg font-medium text-white">БТГ+</span>
+            <div className="absolute h-10 w-10 border border-white -left-[4px]"></div>
+            <span className="text-lg font-medium text-white bg-primary relative z-10">БТГ+</span>
           </div>
           {!collapsed && (
             <div className="ml-3">
