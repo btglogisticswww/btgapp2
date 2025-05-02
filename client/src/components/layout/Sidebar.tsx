@@ -65,7 +65,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
         </div>
         <button 
           onClick={() => setCollapsed(!collapsed)} 
-          className={`text-white hover:text-white/80 focus:outline-none absolute ${collapsed ? "right-[-20px]" : "right-4"} top-1/2 -translate-y-1/2 z-20`}
+          className={`text-white hover:text-white/80 focus:outline-none absolute ${collapsed ? "right-[-12px]" : "right-4"} top-1/2 -translate-y-1/2 z-20`}
         >
           {collapsed ? (
             <ChevronsRight className="h-5 w-5" />
