@@ -50,7 +50,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
         collapsed ? "w-20" : "w-64"
       }`}
     >
-      <div className="flex items-center justify-between p-4 border-b border-sidebar-border bg-primary h-16">
+      <div className="flex items-center justify-between p-4 bg-primary h-16">
         <div className="flex items-center">
           <div className="flex h-9 w-9 items-center justify-center rounded bg-white text-primary">
             <span className="text-xl font-bold">БТГ</span>
