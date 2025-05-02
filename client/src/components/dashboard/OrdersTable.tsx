@@ -126,7 +126,7 @@ export default function OrdersTable({ limit = 4, showViewAll = true }: OrdersTab
             <button className="relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-foreground bg-card hover:bg-muted">
               {t("previous")}
             </button>
-            <button className="ml-3 relative inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-md text-foreground bg-card hover:bg-muted">
+            <button className="ml-3 relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-foreground bg-card hover:bg-muted">
               {t("next")}
             </button>
           </div>

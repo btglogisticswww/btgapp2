@@ -67,7 +67,7 @@ export default function OrdersPage() {
   return (
     <MainLayout title={t("orders")}>
       {/* Tabs */}
-      <div className="mb-6 border-b border-border">
+      <div className="mb-6">
         <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="bg-background border-b-0">
             <TabsTrigger value="all">{t("all")}</TabsTrigger>
@@ -163,7 +163,7 @@ export default function OrdersPage() {
                             </TableCell>
                             <TableCell className="text-right">
                               <Link href={`/orders/${order.id}`} onClick={(e) => e.stopPropagation()}>
-                                <Button variant="outline" size="sm">
+                                <Button variant="ghost" size="sm">
                                   {t("details")}
                                 </Button>
                               </Link>

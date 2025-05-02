@@ -179,7 +179,7 @@ export default function OrderDetailPage() {
       <MainLayout title={t('orderDetails')}>
         <div className="p-6">
           <Link href="/orders">
-            <Button variant="outline" className="mb-6">
+            <Button variant="ghost" className="mb-6">
               <ArrowLeft className="mr-2 h-4 w-4" />
               {t('back')}
             </Button>
@@ -204,7 +204,7 @@ export default function OrderDetailPage() {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
             <Link href="/orders">
-              <Button variant="outline">
+              <Button variant="ghost">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 {t('back')}
               </Button>
