@@ -69,11 +69,11 @@ export default function OrdersPage() {
       {/* Tabs */}
       <div className="mb-6">
         <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="bg-background border-b-0">
-            <TabsTrigger value="all">{t("all")}</TabsTrigger>
-            <TabsTrigger value="active">{t("active")}</TabsTrigger>
-            <TabsTrigger value="pending">{t("pending")}</TabsTrigger>
-            <TabsTrigger value="completed">{t("completed")}</TabsTrigger>
+          <TabsList className="w-full justify-start border-b border-border">
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="all">{t("all")}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="active">{t("active")}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="pending">{t("pending")}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="completed">{t("completed")}</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
@@ -139,7 +139,8 @@ export default function OrdersPage() {
                         return (
                           <TableRow 
                             key={order.id} 
-                            className={`cursor-pointer ${isSelected ? 'bg-muted' : ''}`}
+                            className={`cursor-pointer ${isSelected ? 'bg-sidebar-accent data-[state=selected]' : ''}`}
+                            data-state={isSelected ? 'selected' : undefined}
                             onClick={() => handleOrderSelect(order)}
                           >
                             <TableCell className="font-medium text-primary">
