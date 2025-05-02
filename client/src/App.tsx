@@ -10,6 +10,7 @@ import NotFound from "@/pages/not-found";
 import LoginPage from "@/pages/login-page";
 import DashboardPage from "@/pages/dashboard-page";
 import OrdersPage from "@/pages/orders-page";
+import OrderDetailPage from "@/pages/order-detail-page";
 import RoutesPage from "@/pages/routes-page";
 import ClientsPage from "@/pages/clients-page";
 import CarriersPage from "@/pages/carriers-page";
@@ -21,6 +22,7 @@ function Router() {
       <Route path="/auth" component={LoginPage} />
       <ProtectedRoute path="/" component={DashboardPage} />
       <ProtectedRoute path="/orders" component={OrdersPage} />
+      <ProtectedRoute path="/orders/:id" component={OrderDetailPage} />
       <ProtectedRoute path="/routes" component={RoutesPage} />
       <ProtectedRoute path="/clients" component={ClientsPage} />
       <ProtectedRoute path="/carriers" component={CarriersPage} />
