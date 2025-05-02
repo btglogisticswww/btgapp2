@@ -50,7 +50,9 @@ export function formatDate(date: Date | string | null | undefined): string {
  * @param status The status key
  * @returns An object with background and text color classes
  */
-export function getStatusColors(status: string): { bg: string, text: string } {
+export function getStatusColors(status: string | null | undefined): { bg: string, text: string } {
+  if (!status) return { bg: 'bg-gray-100', text: 'text-gray-800' };
+  
   switch (status.toLowerCase()) {
     case 'active':
     case 'в пути':

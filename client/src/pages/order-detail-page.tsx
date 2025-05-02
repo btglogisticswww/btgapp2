@@ -55,12 +55,27 @@ export default function OrderDetailPage() {
   // Fetch order data
   const { data: order, isLoading: orderLoading } = useQuery<Order>({
     queryKey: ["/api/orders", orderId],
+    queryFn: async () => {
+      const response = await fetch(`/api/orders/${orderId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch order');
+      }
+      return response.json();
+    },
     enabled: !!orderId,
   });
 
   // Fetch client data
   const { data: client, isLoading: clientLoading } = useQuery<Client>({
     queryKey: ["/api/clients", order?.clientId],
+    queryFn: async () => {
+      if (!order?.clientId) throw new Error('No client ID');
+      const response = await fetch(`/api/clients/${order.clientId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch client');
+      }
+      return response.json();
+    },
     enabled: !!order?.clientId,
   });
 
@@ -80,6 +95,14 @@ export default function OrderDetailPage() {
   // Fetch carrier
   const { data: carrier, isLoading: carrierLoading } = useQuery<Carrier>({
     queryKey: ["/api/carriers", order?.carrierId],
+    queryFn: async () => {
+      if (!order?.carrierId) throw new Error('No carrier ID');
+      const response = await fetch(`/api/carriers/${order.carrierId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch carrier');
+      }
+      return response.json();
+    },
     enabled: !!order?.carrierId,
   });
 
