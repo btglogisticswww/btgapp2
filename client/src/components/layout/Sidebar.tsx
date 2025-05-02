@@ -50,8 +50,8 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
         collapsed ? "w-20" : "w-64"
       }`}
     >
-      <div className="flex items-center justify-between p-4 bg-primary h-16">
-        <div className="flex items-center">
+      <div className="flex items-center bg-primary h-16 relative">
+        <div className={`flex items-center ${collapsed ? "w-full justify-center" : "p-4"}`}>
           <div className="flex h-10 w-10 items-center justify-center relative">
             <div className="absolute h-10 w-10 border border-white -left-[4px]"></div>
             <span className="text-lg font-medium text-white bg-primary relative z-10">БТГ+</span>
@@ -65,7 +65,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
         </div>
         <button 
           onClick={() => setCollapsed(!collapsed)} 
-          className="text-white hover:text-white/80 focus:outline-none"
+          className={`text-white hover:text-white/80 focus:outline-none absolute ${collapsed ? "right-[-20px]" : "right-4"} top-1/2 -translate-y-1/2 z-20`}
         >
           {collapsed ? (
             <ChevronsRight className="h-5 w-5" />
