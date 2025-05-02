@@ -98,28 +98,30 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
       
       <div className="p-4 border-t border-sidebar-border bg-primary">
         <div className="flex items-center">
-          <div className="flex-shrink-0">
+          <div className={`flex-shrink-0 ${collapsed ? "mx-auto" : ""}`}>
             <div className="h-9 w-9 rounded-full flex items-center justify-center px-2.5 py-1.5 border border-white">
               <span className="font-medium text-white">{user ? getInitials(user.fullName) : "U"}</span>
             </div>
           </div>
           {!collapsed && (
-            <div className="ml-3">
-              <p className="text-sm font-medium text-white">
-                {user?.fullName || user?.username || "Пользователь"}
-              </p>
-              <p className="text-xs text-white/70">{user?.position || "Сотрудник"}</p>
-            </div>
+            <>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-white">
+                  {user?.fullName || user?.username || "Пользователь"}
+                </p>
+                <p className="text-xs text-white/70">{user?.position || "Сотрудник"}</p>
+              </div>
+              <div className="ml-auto">
+                <button 
+                  onClick={handleLogout}
+                  className="text-white hover:text-white/80"
+                  title={t("logout")}
+                >
+                  <LogOut className="h-5 w-5" />
+                </button>
+              </div>
+            </>
           )}
-          <div className={collapsed ? "ml-auto" : "ml-auto"}>
-            <button 
-              onClick={handleLogout}
-              className="text-white hover:text-white/80"
-              title={t("logout")}
-            >
-              <LogOut className="h-5 w-5" />
-            </button>
-          </div>
         </div>
       </div>
     </aside>
