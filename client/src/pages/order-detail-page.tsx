@@ -222,118 +222,116 @@ export default function OrderDetailPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">{t('generalInfo')}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="flex items-center">
-                  <Info className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('id')}:</span>
-                  <span>{order.orderNumber}</span>
-                </div>
-                <div className="flex items-center">
-                  <Building className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('client')}:</span>
-                  <span>{client?.name || '-'}</span>
-                </div>
-                <div className="flex items-center">
-                  <Truck className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('type')}:</span>
-                  <span>{order.type}</span>
-                </div>
-                <div className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('orderDate')}:</span>
-                  <span>{formatDate(order.orderDate)}</span>
-                </div>
-                <div className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('deliveryDate')}:</span>
-                  <span>{order.deliveryDate ? formatDate(order.deliveryDate) : '-'}</span>
-                </div>
-                <div className="flex items-center">
-                  <User className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('manager')}:</span>
-                  <span>{order.managerId ? `ID: ${order.managerId}` : '-'}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">{t('cargoInfo')}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="flex items-center">
-                  <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('origin')}:</span>
-                  <span>{order.originAddress}</span>
-                </div>
-                <div className="flex items-center">
-                  <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('destination')}:</span>
-                  <span>{order.destinationAddress}</span>
-                </div>
-                <div className="flex items-center">
-                  <FileText className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('route')}:</span>
-                  <span>{order.route}</span>
-                </div>
-                <div className="flex items-center">
-                  <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('weight')}:</span>
-                  <span>{order.weight || '-'}</span>
-                </div>
-                <div className="flex items-center">
-                  <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('volume')}:</span>
-                  <span>{order.volume || '-'}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">{t('financialInfo')}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="flex items-center">
-                  <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('price')}:</span>
-                  <span>{order.price ? formatCurrency(Number(order.price)) : '-'}</span>
-                </div>
-                <div className="flex items-center">
-                  <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground mr-1">{t('cost')}:</span>
-                  <span>{order.cost ? formatCurrency(Number(order.cost)) : '-'}</span>
-                </div>
-                {order.notes && (
-                  <div className="flex items-start pt-2">
-                    <MessageCircle className="h-4 w-4 mr-2 text-muted-foreground mt-0.5" />
-                    <div>
-                      <span className="text-muted-foreground block">{t('notes')}:</span>
-                      <p className="text-sm mt-1">{order.notes}</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <Tabs defaultValue="client" className="w-full">
-          <TabsList className="w-full justify-start">
-            <TabsTrigger value="client">{t('client')}</TabsTrigger>
-            <TabsTrigger value="routes">{t('routes')}</TabsTrigger>
-            <TabsTrigger value="carriers">{t('carriers')}</TabsTrigger>
+        <Tabs defaultValue="general" className="w-full">
+          <TabsList className="w-full justify-start border-b border-border">
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=inactive]:text-muted-foreground" value="general">{t('generalInfo')}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=inactive]:text-muted-foreground" value="cargo">{t('cargoInfo')}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=inactive]:text-muted-foreground" value="financial">{t('financialInfo')}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=inactive]:text-muted-foreground" value="client">{t('client')}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=inactive]:text-muted-foreground" value="routes">{t('routes')}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=inactive]:text-muted-foreground" value="carriers">{t('carriers')}</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="general" className="mt-6">
+            <Card>
+              <CardContent className="pt-6">
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <Info className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('id')}:</span>
+                    <span>{order.orderNumber}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Building className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('client')}:</span>
+                    <span>{client?.name || '-'}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Truck className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('type')}:</span>
+                    <span>{order.type}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('orderDate')}:</span>
+                    <span>{formatDate(order.orderDate)}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('deliveryDate')}:</span>
+                    <span>{order.deliveryDate ? formatDate(order.deliveryDate) : '-'}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <User className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('manager')}:</span>
+                    <span>{order.managerId ? `ID: ${order.managerId}` : '-'}</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="cargo" className="mt-6">
+            <Card>
+              <CardContent className="pt-6">
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('origin')}:</span>
+                    <span>{order.originAddress}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('destination')}:</span>
+                    <span>{order.destinationAddress}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <FileText className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('route')}:</span>
+                    <span>{order.route}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('weight')}:</span>
+                    <span>{order.weight || '-'}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('volume')}:</span>
+                    <span>{order.volume || '-'}</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="financial" className="mt-6">
+            <Card>
+              <CardContent className="pt-6">
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('price')}:</span>
+                    <span>{order.price ? formatCurrency(Number(order.price)) : '-'}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t('cost')}:</span>
+                    <span>{order.cost ? formatCurrency(Number(order.cost)) : '-'}</span>
+                  </div>
+                  {order.notes && (
+                    <div className="flex items-start pt-2">
+                      <MessageCircle className="h-4 w-4 mr-2 text-muted-foreground mt-0.5" />
+                      <div>
+                        <span className="text-muted-foreground block">{t('notes')}:</span>
+                        <p className="text-sm mt-1">{order.notes}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
           <TabsContent value="client" className="mt-6">
             {client ? (
