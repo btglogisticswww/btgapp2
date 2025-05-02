@@ -127,6 +127,7 @@ export default function OrdersPage() {
                       <TableHead>{t("status")}</TableHead>
                       <TableHead>{t("date")}</TableHead>
                       <TableHead>{t("price")}</TableHead>
+                      <TableHead className="text-right">{t("actions")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -160,12 +161,19 @@ export default function OrdersPage() {
                             <TableCell className="font-medium">
                               {formatCurrency(order.price)}
                             </TableCell>
+                            <TableCell className="text-right">
+                              <Link href={`/orders/${order.id}`} onClick={(e) => e.stopPropagation()}>
+                                <Button variant="outline" size="sm">
+                                  {t("details")}
+                                </Button>
+                              </Link>
+                            </TableCell>
                           </TableRow>
                         );
                       })
                     ) : (
                       <TableRow>
-                        <TableCell colSpan={6} className="h-24 text-center">
+                        <TableCell colSpan={7} className="h-24 text-center">
                           {t("noData")}
                         </TableCell>
                       </TableRow>
@@ -216,15 +224,15 @@ export default function OrdersPage() {
                         </div>
                         <div>
                           <p className="text-muted-foreground">{t("weight")}</p>
-                          <p>{selectedOrder.weight}</p>
+                          <p>{selectedOrder.weight ? String(selectedOrder.weight) : '-'}</p>
                         </div>
                         <div>
                           <p className="text-muted-foreground">{t("volume")}</p>
-                          <p>{selectedOrder.volume}</p>
+                          <p>{selectedOrder.volume ? String(selectedOrder.volume) : '-'}</p>
                         </div>
                         <div>
                           <p className="text-muted-foreground">{t("manager")}</p>
-                          <p>{selectedOrder.managerId}</p>
+                          <p>{selectedOrder.managerId ? String(selectedOrder.managerId) : '-'}</p>
                         </div>
                       </div>
                     </div>
@@ -244,140 +252,22 @@ export default function OrdersPage() {
                       </div>
                     </div>
                     
-                    {/* Cargo Info if available */}
-                    {selectedOrder.details && typeof selectedOrder.details === 'string' && (
-                      (() => {
-                        try {
-                          const details = JSON.parse(selectedOrder.details as string);
-                          return (
-                            <>
-                              {/* Sender Details */}
-                              {details.sender && (
-                                <div>
-                                  <h3 className="text-sm font-medium text-foreground mb-2">{t("senderInfo")}</h3>
-                                  <div className="text-sm">
-                                    <div className="grid grid-cols-2 gap-4">
-                                      <div>
-                                        <p className="text-muted-foreground">{t("name")}</p>
-                                        <p>{details.sender.name}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-muted-foreground">{t("contact")}</p>
-                                        <p>{details.sender.contact}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-muted-foreground">{t("phone")}</p>
-                                        <p>{details.sender.phone}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-muted-foreground">{t("address")}</p>
-                                        <p>{details.sender.address}</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                              
-                              {/* Recipient Details */}
-                              {details.recipient && (
-                                <div>
-                                  <h3 className="text-sm font-medium text-foreground mb-2">{t("recipientInfo")}</h3>
-                                  <div className="text-sm">
-                                    <div className="grid grid-cols-2 gap-4">
-                                      <div>
-                                        <p className="text-muted-foreground">{t("name")}</p>
-                                        <p>{details.recipient.name}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-muted-foreground">{t("contact")}</p>
-                                        <p>{details.recipient.contact}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-muted-foreground">{t("phone")}</p>
-                                        <p>{details.recipient.phone}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-muted-foreground">{t("address")}</p>
-                                        <p>{details.recipient.address}</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                              
-                              {/* Cargo Details */}
-                              {details.cargo && (
-                                <div>
-                                  <h3 className="text-sm font-medium text-foreground mb-2">{t("cargoInfo")}</h3>
-                                  <div className="text-sm">
-                                    <div className="grid grid-cols-2 gap-4">
-                                      <div>
-                                        <p className="text-muted-foreground">{t("description")}</p>
-                                        <p>{details.cargo.description}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-muted-foreground">{t("packaging")}</p>
-                                        <p>{details.cargo.packaging}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-muted-foreground">{t("hazardClass")}</p>
-                                        <p>{details.cargo.hazardClass}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-muted-foreground">{t("temperature")}</p>
-                                        <p>{details.cargo.temperature}</p>
-                                      </div>
-                                    </div>
-                                    
-                                    {details.cargo.documents && details.cargo.documents.length > 0 && (
-                                      <div className="mt-4">
-                                        <p className="text-muted-foreground mb-2">{t("docs")}</p>
-                                        <ul className="list-disc list-inside">
-                                          {details.cargo.documents.map((doc: string, index: number) => (
-                                            <li key={index}>{doc}</li>
-                                          ))}
-                                        </ul>
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
-                              )}
-                              
-                              {/* Timeline */}
-                              {details.timeline && details.timeline.length > 0 && (
-                                <div>
-                                  <h3 className="text-sm font-medium text-foreground mb-2">{t("timeline")}</h3>
-                                  <div className="space-y-4">
-                                    {details.timeline.map((event: any, index: number) => (
-                                      <div key={index} className="flex">
-                                        <div className="mr-4 relative">
-                                          <div className="h-4 w-4 rounded-full bg-primary"></div>
-                                          {index < details.timeline.length - 1 && (
-                                            <div className="h-full w-0.5 bg-border absolute top-4 left-1/2 -translate-x-1/2"></div>
-                                          )}
-                                        </div>
-                                        <div className="pb-4">
-                                          <p className="text-sm text-foreground font-medium">{event.event}</p>
-                                          <div className="flex items-center text-xs text-muted-foreground mt-1">
-                                            <span>{event.date}</span>
-                                            {event.time && (
-                                              <span className="ml-2">{event.time}</span>
-                                            )}
-                                          </div>
-                                        </div>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-                            </>
-                          );
-                        } catch (error) {
-                          console.error("Error parsing order details:", error);
-                          return null;
-                        }
-                      })()
-                    )}
+                    {/* Additional Details */}
+                    <div>
+                      <h3 className="text-sm font-medium text-foreground mb-2">{t("additionalInfo")}</h3>
+                      <div className="text-sm">
+                        {selectedOrder.details && typeof selectedOrder.details === 'string' && (
+                          <div className="text-muted-foreground">
+                            <p>{t("orderHasAdditionalDetails")}</p>
+                            <Link href={`/orders/${selectedOrder.id}`}>
+                              <Button variant="link" className="mt-2 p-0 h-auto text-primary">
+                                {t("viewDetailedInfo")}
+                              </Button>
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </ScrollArea>
               </CardContent>
