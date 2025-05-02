@@ -32,13 +32,12 @@ interface ClientDialogProps {
   onClose: (refreshNeeded?: boolean) => void;
 }
 
+// Расширяем схему валидации для нашей формы на основе существующей схемы
 const formSchema = clientValidationSchema.extend({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  contactPerson: z.string().optional(),
-  phone: z.string().optional(),
-  email: z.string().email("Must provide a valid email").optional().or(z.literal("")),
-  address: z.string().optional(),
-  notes: z.string().optional(),
+  contactPerson: z.string().optional().or(z.literal("")),
+  phone: z.string().optional().or(z.literal("")),
+  address: z.string().optional().or(z.literal("")),
+  notes: z.string().optional().or(z.literal(""))
 });
 
 type ClientFormValues = z.infer<typeof formSchema>;
