@@ -5,6 +5,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import { useQuery } from "@tanstack/react-query";
 import { Order } from "@shared/schema";
 import { formatCurrency, formatDate, getStatusColors, getInitials } from "@/lib/utils";
+import { Link } from "wouter";
 import { 
   Loader2,
   Search,
@@ -182,7 +183,11 @@ export default function OrdersPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex justify-between items-center">
-                  <span>{t("orderDetails")}</span>
+                  <span>
+                    <Link href={`/orders/${selectedOrder.id}`} className="hover:underline">
+                      {t("orderDetails")}
+                    </Link>
+                  </span>
                   <Badge 
                     variant="outline" 
                     className={`${getStatusColors(selectedOrder.status).bg} ${getStatusColors(selectedOrder.status).text} border-0`}

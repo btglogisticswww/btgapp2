@@ -109,7 +109,7 @@ export default function OrderDetailPage() {
         
         // Then get carriers for these vehicles
         const carrierIds = vehicles.map(vehicle => vehicle.carrierId).filter(Boolean);
-        const uniqueCarrierIds = [...new Set(carrierIds)];
+        const uniqueCarrierIds = Array.from(new Set(carrierIds));
         
         if (uniqueCarrierIds.length === 0) {
           setCarriersLoading(false);
@@ -143,7 +143,7 @@ export default function OrderDetailPage() {
 
   if (isLoading) {
     return (
-      <MainLayout>
+      <MainLayout title={t('orderDetails')}>
         <div className="flex items-center justify-center min-h-[70vh]">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
@@ -153,7 +153,7 @@ export default function OrderDetailPage() {
 
   if (!order) {
     return (
-      <MainLayout>
+      <MainLayout title={t('orderDetails')}>
         <div className="p-6">
           <Link href="/orders">
             <Button variant="outline" className="mb-6">
@@ -176,7 +176,7 @@ export default function OrderDetailPage() {
   const statusColors = getStatusColors(status);
 
   return (
-    <MainLayout>
+    <MainLayout title={t('orderDetails')}>
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
@@ -187,7 +187,7 @@ export default function OrderDetailPage() {
               </Button>
             </Link>
             <h1 className="text-2xl font-bold">{t('orderDetails')}</h1>
-            <Badge className={statusColors}>
+            <Badge className={`${statusColors.bg} ${statusColors.text}`}>
               {t(status)}
             </Badge>
           </div>
@@ -389,7 +389,7 @@ export default function OrderDetailPage() {
                     <CardHeader>
                       <div className="flex items-center justify-between">
                         <CardTitle className="text-lg">{route.startPoint} → {route.endPoint}</CardTitle>
-                        <Badge className={getStatusColors(route.status)}>
+                        <Badge className={`${getStatusColors(route.status).bg} ${getStatusColors(route.status).text}`}>
                           {t(route.status)}
                         </Badge>
                       </div>
