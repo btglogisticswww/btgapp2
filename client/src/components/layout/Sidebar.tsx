@@ -50,21 +50,21 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
         collapsed ? "w-20" : "w-64"
       }`}
     >
-      <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
+      <div className="flex items-center justify-between p-4 border-b border-sidebar-border bg-primary h-16">
         <div className="flex items-center">
-          <div className="flex h-9 w-9 items-center justify-center rounded bg-sidebar-primary text-sidebar-primary-foreground">
+          <div className="flex h-9 w-9 items-center justify-center rounded bg-white text-primary">
             <span className="text-xl font-bold">БТГ</span>
           </div>
           {!collapsed && (
             <div className="ml-3">
-              <p className="text-xs text-sidebar-foreground/70 tracking-wider uppercase">WORLDWIDE</p>
-              <p className="text-xs text-sidebar-foreground/70 tracking-wider uppercase">LOGISTICS</p>
+              <p className="text-xs text-white tracking-wider uppercase">WORLDWIDE</p>
+              <p className="text-xs text-white tracking-wider uppercase">LOGISTICS</p>
             </div>
           )}
         </div>
         <button 
           onClick={() => setCollapsed(!collapsed)} 
-          className="text-sidebar-foreground/70 hover:text-sidebar-foreground focus:outline-none"
+          className="text-white hover:text-white/80 focus:outline-none"
         >
           {collapsed ? (
             <ChevronsRight className="h-5 w-5" />
@@ -95,25 +95,25 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
         </nav>
       </div>
       
-      <div className="p-4 border-t border-sidebar-border">
+      <div className="p-4 border-t border-sidebar-border bg-primary">
         <div className="flex items-center">
           <div className="flex-shrink-0">
-            <div className="h-9 w-9 rounded-full bg-gray-300 flex items-center justify-center text-gray-600">
+            <div className="h-9 w-9 rounded-full bg-white flex items-center justify-center text-primary">
               <span className="font-medium">{user ? getInitials(user.fullName) : "U"}</span>
             </div>
           </div>
           {!collapsed && (
             <div className="ml-3">
-              <p className="text-sm font-medium text-sidebar-foreground">
+              <p className="text-sm font-medium text-white">
                 {user?.fullName || user?.username || "Пользователь"}
               </p>
-              <p className="text-xs text-sidebar-foreground/70">{user?.position || "Сотрудник"}</p>
+              <p className="text-xs text-white/70">{user?.position || "Сотрудник"}</p>
             </div>
           )}
           <div className={collapsed ? "ml-auto" : "ml-auto"}>
             <button 
               onClick={handleLogout}
-              className="text-sidebar-foreground/70 hover:text-sidebar-foreground"
+              className="text-white hover:text-white/80"
               title={t("logout")}
             >
               <LogOut className="h-5 w-5" />
