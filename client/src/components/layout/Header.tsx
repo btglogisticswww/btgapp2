@@ -33,7 +33,7 @@ export default function Header({ title, toggleSidebar, toggleNotificationPanel }
           >
             <Menu className="h-6 w-6" />
           </button>
-          <h1 className="text-xl font-semibold text-white">{title}</h1>
+          <h1 className="text-xl font-medium text-white tracking-tight">{title}</h1>
         </div>
         
         <div className="flex items-center space-x-4">
