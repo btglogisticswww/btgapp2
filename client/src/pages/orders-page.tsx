@@ -243,11 +243,11 @@ export default function OrdersPage() {
                       <div className="text-sm">
                         <div className="mb-2">
                           <p className="text-muted-foreground">{t("sender")}</p>
-                          <p>{selectedOrder.originAddress}</p>
+                          <p>{selectedOrder.originAddress || '-'}</p>
                         </div>
                         <div>
                           <p className="text-muted-foreground">{t("recipient")}</p>
-                          <p>{selectedOrder.destinationAddress}</p>
+                          <p>{selectedOrder.destinationAddress || '-'}</p>
                         </div>
                       </div>
                     </div>
@@ -256,16 +256,14 @@ export default function OrdersPage() {
                     <div>
                       <h3 className="text-sm font-medium text-foreground mb-2">{t("additionalInfo")}</h3>
                       <div className="text-sm">
-                        {selectedOrder.details && typeof selectedOrder.details === 'string' && (
-                          <div className="text-muted-foreground">
-                            <p>{t("orderHasAdditionalDetails")}</p>
-                            <Link href={`/orders/${selectedOrder.id}`}>
-                              <Button variant="link" className="mt-2 p-0 h-auto text-primary">
-                                {t("viewDetailedInfo")}
-                              </Button>
-                            </Link>
-                          </div>
-                        )}
+                        <div className="text-muted-foreground">
+                          <p>{t("orderHasAdditionalDetails")}</p>
+                          <Link href={`/orders/${selectedOrder.id}`}>
+                            <Button variant="link" className="mt-2 p-0 h-auto text-primary">
+                              {t("viewDetailedInfo")}
+                            </Button>
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
