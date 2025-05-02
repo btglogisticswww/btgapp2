@@ -119,6 +119,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.patch(`${apiPrefix}/clients/:id`, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updatedClient = await storage.updateClient(parseInt(id), req.body);
+      if (!updatedClient) {
+        return res.status(404).json({ message: "Client not found" });
+      }
+      res.json(updatedClient);
+    } catch (error) {
+      console.error(`Error updating client ${req.params.id}:`, error);
+      res.status(500).json({ message: "Failed to update client" });
+    }
+  });
+
   // Carriers API
   app.get(`${apiPrefix}/carriers`, async (req, res) => {
     try {
@@ -155,6 +169,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.put(`${apiPrefix}/carriers/:id`, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updatedCarrier = await storage.updateCarrier(parseInt(id), req.body);
+      if (!updatedCarrier) {
+        return res.status(404).json({ message: "Carrier not found" });
+      }
+      res.json(updatedCarrier);
+    } catch (error) {
+      console.error(`Error updating carrier ${req.params.id}:`, error);
+      res.status(500).json({ message: "Failed to update carrier" });
+    }
+  });
+
+  app.patch(`${apiPrefix}/carriers/:id`, async (req, res) => {
     try {
       const { id } = req.params;
       const updatedCarrier = await storage.updateCarrier(parseInt(id), req.body);
