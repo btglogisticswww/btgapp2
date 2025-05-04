@@ -101,16 +101,14 @@ export default function LoginPage() {
         <div className="w-full bg-primary py-3 px-5 rounded-t-lg">
           <div className="flex items-center">
             <div className="flex items-center">
-              <span className="text-3xl font-bold text-white">БТГ</span>
-              <span className="text-white ml-1">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-white">
-                  <path d="M12 4V20M4 12H20" strokeWidth="2" strokeLinecap="round" />
-                </svg>
-              </span>
-            </div>
-            <div className="ml-3">
-              <p className="text-white text-xs tracking-wider uppercase">WORLDWIDE</p>
-              <p className="text-white text-xs tracking-wider uppercase">LOGISTICS</p>
+              <div className="flex h-10 w-10 items-center justify-center relative">
+                <div className="absolute h-10 w-10 border border-white -left-[4px]"></div>
+                <span className="text-lg font-medium text-white bg-primary relative z-10">БТГ+</span>
+              </div>
+              <div className="ml-3">
+                <p className="text-xs text-white tracking-wider uppercase">WORLDWIDE</p>
+                <p className="text-xs text-white tracking-wider uppercase">LOGISTICS</p>
+              </div>
             </div>
           </div>
         </div>
