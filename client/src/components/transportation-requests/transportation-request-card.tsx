@@ -38,7 +38,7 @@ export default function TransportationRequestCard({
             <h3 className="text-lg font-bold">{request.carrierName}</h3>
             <div className="flex items-center text-sm text-muted-foreground">
               <Calendar className="mr-1 h-4 w-4" />
-              <span>{formatDate(request.scheduledDate.toString())}</span>
+              <span>{request.deadline ? formatDate(request.deadline.toString()) : t('no_deadline')}</span>
             </div>
           </div>
           <Badge variant="secondary" className={`${statusColors.bg} ${statusColors.text} border-0`}>
@@ -47,11 +47,7 @@ export default function TransportationRequestCard({
         </div>
 
         <div className="space-y-2 text-sm">
-          <div className="flex items-center">
-            <Truck className="mr-2 h-4 w-4 text-muted-foreground" />
-            <span className="text-muted-foreground mr-1">{t('vehicle')}:</span>
-            <span>{request.vehicleId ? `ID: ${request.vehicleId}` : t('no_vehicle')}</span>
-          </div>
+          {/* Убрано поле vehicleId из интерфейса */}
 
           <div className="flex items-center">
             <DollarSign className="mr-2 h-4 w-4 text-muted-foreground" />
@@ -62,7 +58,7 @@ export default function TransportationRequestCard({
           <div className="flex items-center">
             <Building className="mr-2 h-4 w-4 text-muted-foreground" />
             <span className="text-muted-foreground mr-1">{t('carrier')}:</span>
-            <span>{t('carrier_id')}: {request.carrierId}</span>
+            <span>{request.carrierName || `ID: ${request.carrierId}`}</span>
           </div>
 
 
