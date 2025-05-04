@@ -41,7 +41,7 @@ export default function CreateOrderPage() {
   };
 
   return (
-    <MainLayout>
+    <MainLayout title={t('newOrder')}>
       <div className="container mx-auto py-6 space-y-6">
         <Card>
           <CardHeader>

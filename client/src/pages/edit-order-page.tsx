@@ -53,7 +53,7 @@ export default function EditOrderPage() {
 
   if (isLoading) {
     return (
-      <MainLayout>
+      <MainLayout title={t('loading')}>
         <div className="container mx-auto py-6 flex justify-center items-center min-h-[500px]">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
@@ -63,7 +63,7 @@ export default function EditOrderPage() {
 
   if (error || !order) {
     return (
-      <MainLayout>
+      <MainLayout title={t('error')}>
         <div className="container mx-auto py-6">
           <Card>
             <CardContent className="p-6">
@@ -78,7 +78,7 @@ export default function EditOrderPage() {
   }
 
   return (
-    <MainLayout>
+    <MainLayout title={t('edit_order')}>
       <div className="container mx-auto py-6 space-y-6">
         <Card>
           <CardHeader>
