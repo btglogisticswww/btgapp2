@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Plus, Search, RefreshCw, Edit, Mail, Phone } from "lucide-react";
 import { Client } from "@shared/schema";
+// Удален импорт ClientDialog, так как теперь используем отдельные страницы
 
 export default function ClientsPage() {
   const { t } = useLanguage();
@@ -105,13 +106,14 @@ export default function ClientsPage() {
                           {client.address || "-"}
                         </TableCell>
                         <TableCell className="text-right">
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => handleEditClient(client)}
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
+                          <Link href={`/clients/${client.id}/edit`}>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                          </Link>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -131,9 +133,11 @@ export default function ClientsPage() {
                     {t("clear_search")}
                   </Button>
                 ) : (
-                  <Button onClick={handleAddNewClient}>
-                    <Plus className="mr-2 h-4 w-4" /> {t("add_first_client")}
-                  </Button>
+                  <Link href="/clients/create">
+                    <Button>
+                      <Plus className="mr-2 h-4 w-4" /> {t("add_first_client")}
+                    </Button>
+                  </Link>
                 )}
               </div>
             )}
@@ -141,11 +145,7 @@ export default function ClientsPage() {
         </Card>
       </div>
 
-      <ClientDialog
-        open={isDialogOpen}
-        client={selectedClient}
-        onClose={handleCloseDialog}
-      />
+      {/* Модальное окно больше не используется, вместо него отдельные страницы */}
     </MainLayout>
   );
 }
