@@ -86,8 +86,8 @@ export default function AddRoutePage() {
       });
       // Invalidate the query cache for routes
       queryClient.invalidateQueries({ queryKey: [`/api/orders/${orderId}/routes`] });
-      // Navigate back to the order detail page
-      navigate(`/orders/${orderId}`);
+      // Navigate back to the order detail page with routes tab query parameter
+      navigate(`/orders/${orderId}?tab=routes`);
     },
     onError: (error) => {
       console.error("Route creation error:", error);
@@ -263,7 +263,7 @@ export default function AddRoutePage() {
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => navigate(`/orders/${id}`)}
+                      onClick={() => navigate(`/orders/${id}?tab=routes`)}
                     >
                       {t("cancel")}
                     </Button>

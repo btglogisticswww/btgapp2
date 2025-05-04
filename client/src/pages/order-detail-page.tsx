@@ -40,12 +40,17 @@ import { Link } from "wouter";
 
 export default function OrderDetailPage() {
   const { t } = useLanguage();
-  const [, params] = useRoute('/orders/:id');
+  const [location, params] = useRoute('/orders/:id');
   const orderId = params?.id ? parseInt(params.id) : 0;
   
-  // State for route forms
+  // Get tab from URL query parameter
+  const queryParams = new URLSearchParams(typeof location === 'string' ? location.split('?')[1] || '' : '');
+  const tabFromUrl = queryParams.get('tab');
+  
+  // State for route forms and active tab
   const [addingRoute, setAddingRoute] = useState(false);
   const [editingRouteId, setEditingRouteId] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState(tabFromUrl && ["general", "cargo", "financial", "client", "routes", "carriers"].includes(tabFromUrl) ? tabFromUrl : "general");
 
   // Fetch order data
   const { data: order, isLoading: orderLoading } = useQuery<Order>({
@@ -220,7 +225,7 @@ export default function OrderDetailPage() {
           </div>
         </div>
 
-        <Tabs defaultValue="general" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="w-full justify-start border-b border-border">
             <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="general">{t('generalInfo')}</TabsTrigger>
             <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="cargo">{t('cargoInfo')}</TabsTrigger>
