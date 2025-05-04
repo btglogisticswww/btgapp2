@@ -10,7 +10,8 @@ import {
   Loader2,
   Search,
   SlidersHorizontal,
-  Plus
+  Plus,
+  ArrowRight
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -38,32 +39,32 @@ export default function OrdersPage() {
   const [activeTab, setActiveTab] = useState('all');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  
+
   const { data: orders, isLoading, error } = useQuery<Order[]>({
     queryKey: ["/api/orders"],
   });
-  
+
   // Filter orders based on active tab and search query
   const filteredOrders = orders?.filter(order => {
     // Filter by tab
     if (activeTab !== 'all' && order.status !== activeTab) {
       return false;
     }
-    
+
     // Filter by search query
     if (searchQuery && !order.orderNumber.toLowerCase().includes(searchQuery.toLowerCase()) &&
         !order.route.toLowerCase().includes(searchQuery.toLowerCase())) {
       return false;
     }
-    
+
     return true;
   });
-  
+
   // Handle order selection
   const handleOrderSelect = (order: Order) => {
     setSelectedOrder(order);
   };
-  
+
   return (
     <MainLayout title={t("orders")}>
       {/* Tabs */}
@@ -77,7 +78,7 @@ export default function OrdersPage() {
           </TabsList>
         </Tabs>
       </div>
-      
+
       {/* Search and Filter */}
       <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="relative w-full sm:w-96">
@@ -89,20 +90,20 @@ export default function OrdersPage() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        
+
         <div className="flex gap-2 w-full sm:w-auto">
           <Button variant="ghost" className="flex items-center gap-2 w-full sm:w-auto">
             <SlidersHorizontal className="h-4 w-4" />
             {t("filters")}
           </Button>
-          
+
           <Button className="flex items-center gap-2 w-full sm:w-auto">
             <Plus className="h-4 w-4" />
             {t("newOrder")}
           </Button>
         </div>
       </div>
-      
+
       {/* Orders List and Details */}
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Orders List */}
@@ -127,7 +128,7 @@ export default function OrdersPage() {
                       <TableHead>{t("status")}</TableHead>
                       <TableHead>{t("date")}</TableHead>
                       <TableHead>{t("price")}</TableHead>
-                      <TableHead className="text-right">{t("actions")}</TableHead>
+                      <TableHead className="sticky right-0 bg-background w-[100px] text-right">{t("actions")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -135,7 +136,7 @@ export default function OrdersPage() {
                       filteredOrders.map((order) => {
                         const isSelected = selectedOrder?.id === order.id;
                         const statusColors = getStatusColors(order.status);
-                        
+
                         return (
                           <TableRow 
                             key={order.id} 
@@ -162,10 +163,10 @@ export default function OrdersPage() {
                             <TableCell className="font-medium">
                               {formatCurrency(order.price)}
                             </TableCell>
-                            <TableCell className="text-right">
+                            <TableCell className="sticky right-0 bg-background">
                               <Link href={`/orders/${order.id}`} onClick={(e) => e.stopPropagation()}>
-                                <Button variant="ghost" size="sm">
-                                  {t("details")}
+                                <Button variant="ghost" size="icon" className="h-8 w-8">
+                                  <ArrowRight className="h-4 w-4" />
                                 </Button>
                               </Link>
                             </TableCell>
@@ -185,7 +186,7 @@ export default function OrdersPage() {
             )}
           </Card>
         </div>
-        
+
         {/* Order Details */}
         <div className="w-full lg:w-2/5">
           {selectedOrder ? (
@@ -237,7 +238,7 @@ export default function OrdersPage() {
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Route Info */}
                     <div>
                       <h3 className="text-sm font-medium text-foreground mb-2">{t("route")}</h3>
@@ -252,7 +253,7 @@ export default function OrdersPage() {
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Additional Details */}
                     <div>
                       <h3 className="text-sm font-medium text-foreground mb-2">{t("additionalInfo")}</h3>
