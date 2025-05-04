@@ -195,6 +195,8 @@ const translations: Record<Language, Record<string, string>> = {
     "client_updated": "Клиент обновлен",
     "client_created_desc": "Новый клиент успешно добавлен в систему",
     "client_updated_desc": "Данные клиента успешно обновлены",
+    "client_creation_error": "Не удалось создать клиента",
+    "client_update_error": "Не удалось обновить данные клиента",
 
     // Carriers page
     "carrier_list": "Список перевозчиков",
@@ -422,6 +424,8 @@ const translations: Record<Language, Record<string, string>> = {
     "client_updated": "Client updated",
     "client_created_desc": "New client has been successfully added",
     "client_updated_desc": "Client information has been updated",
+    "client_creation_error": "Failed to create client",
+    "client_update_error": "Failed to update client",
 
     // Carriers page
     "carrier_list": "Carrier List",
@@ -649,6 +653,8 @@ const translations: Record<Language, Record<string, string>> = {
     "client_updated": "Kunde aktualisiert",
     "client_created_desc": "Neuer Kunde wurde erfolgreich hinzugefügt",
     "client_updated_desc": "Kundeninformationen wurden aktualisiert",
+    "client_creation_error": "Kunde konnte nicht erstellt werden",
+    "client_update_error": "Kunde konnte nicht aktualisiert werden",
     
     // Carriers page
     "carrier_list": "Spediteurslist",

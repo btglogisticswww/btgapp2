@@ -93,8 +93,8 @@ export default function EditClientPage() {
       
       // Показываем уведомление об успехе
       toast({
-        title: t("success"),
-        description: t("client_updated_successfully"),
+        title: t("client_updated"),
+        description: t("client_updated_desc"),
       });
       
       // Перенаправляем на страницу клиентов
@@ -104,7 +104,7 @@ export default function EditClientPage() {
       // Показываем уведомление об ошибке
       toast({
         title: t("error"),
-        description: error.message || t("client_update_failed"),
+        description: error.message || t("client_update_error"),
         variant: "destructive",
       });
     },
