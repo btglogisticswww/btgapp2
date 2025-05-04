@@ -301,6 +301,7 @@ export const ordersRelations = relations(orders, ({ one, many }) => ({
   }),
   routes: many(routes),
   documents: many(documents),
+  transportationRequests: many(transportationRequests),
 }));
 
 export const routesRelations = relations(routes, ({ one }) => ({
@@ -333,6 +334,17 @@ export const tasksRelations = relations(tasks, ({ one }) => ({
   order: one(orders, {
     fields: [tasks.relatedOrderId],
     references: [orders.id],
+  }),
+}));
+
+export const transportationRequestsRelations = relations(transportationRequests, ({ one }) => ({
+  order: one(orders, {
+    fields: [transportationRequests.orderId],
+    references: [orders.id],
+  }),
+  carrier: one(carriers, {
+    fields: [transportationRequests.carrierId],
+    references: [carriers.id],
   }),
 }));
 

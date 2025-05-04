@@ -38,6 +38,14 @@ export interface IStorage {
   createRoute(route: schema.InsertRoute): Promise<schema.Route>;
   updateRoute(id: number, route: Partial<schema.Route>): Promise<schema.Route | undefined>;
   
+  // Transportation Requests management
+  getTransportationRequests(): Promise<schema.TransportationRequest[]>;
+  getTransportationRequestById(id: number): Promise<schema.TransportationRequest | undefined>;
+  getTransportationRequestsByOrderId(orderId: number): Promise<schema.TransportationRequest[]>;
+  getTransportationRequestsByCarrierId(carrierId: number): Promise<schema.TransportationRequest[]>;
+  createTransportationRequest(request: schema.InsertTransportationRequest): Promise<schema.TransportationRequest>;
+  updateTransportationRequest(id: number, request: Partial<schema.TransportationRequest>): Promise<schema.TransportationRequest | undefined>;
+  
   // Vehicles management
   getVehicles(): Promise<schema.Vehicle[]>;
   getVehicleById(id: number): Promise<schema.Vehicle | undefined>;
@@ -308,6 +316,37 @@ export class DatabaseStorage implements IStorage {
       .where(eq(schema.documents.id, id))
       .returning();
     return updatedDocuments[0];
+  }
+  
+  // Transportation Requests methods
+  async getTransportationRequests(): Promise<schema.TransportationRequest[]> {
+    return await db.select().from(schema.transportationRequests);
+  }
+
+  async getTransportationRequestById(id: number): Promise<schema.TransportationRequest | undefined> {
+    const requests = await db.select().from(schema.transportationRequests).where(eq(schema.transportationRequests.id, id));
+    return requests[0];
+  }
+
+  async getTransportationRequestsByOrderId(orderId: number): Promise<schema.TransportationRequest[]> {
+    return await db.select().from(schema.transportationRequests).where(eq(schema.transportationRequests.orderId, orderId));
+  }
+  
+  async getTransportationRequestsByCarrierId(carrierId: number): Promise<schema.TransportationRequest[]> {
+    return await db.select().from(schema.transportationRequests).where(eq(schema.transportationRequests.carrierId, carrierId));
+  }
+
+  async createTransportationRequest(request: schema.InsertTransportationRequest): Promise<schema.TransportationRequest> {
+    const insertedRequests = await db.insert(schema.transportationRequests).values(request).returning();
+    return insertedRequests[0];
+  }
+
+  async updateTransportationRequest(id: number, request: Partial<schema.TransportationRequest>): Promise<schema.TransportationRequest | undefined> {
+    const updatedRequests = await db.update(schema.transportationRequests)
+      .set(request)
+      .where(eq(schema.transportationRequests.id, id))
+      .returning();
+    return updatedRequests[0];
   }
 }
 

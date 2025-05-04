@@ -522,6 +522,91 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Transportation Requests API
+  app.get(`${apiPrefix}/transportation-requests`, async (req, res) => {
+    try {
+      const requests = await storage.getTransportationRequests();
+      res.json(requests);
+    } catch (error) {
+      console.error("Error fetching transportation requests:", error);
+      res.status(500).json({ message: "Failed to fetch transportation requests" });
+    }
+  });
+
+  app.get(`${apiPrefix}/transportation-requests/:id`, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const request = await storage.getTransportationRequestById(parseInt(id));
+      if (!request) {
+        return res.status(404).json({ message: "Transportation request not found" });
+      }
+      res.json(request);
+    } catch (error) {
+      console.error(`Error fetching transportation request ${req.params.id}:`, error);
+      res.status(500).json({ message: "Failed to fetch transportation request" });
+    }
+  });
+
+  app.get(`${apiPrefix}/orders/:orderId/transportation-requests`, async (req, res) => {
+    try {
+      const { orderId } = req.params;
+      const requests = await storage.getTransportationRequestsByOrderId(parseInt(orderId));
+      res.json(requests);
+    } catch (error) {
+      console.error(`Error fetching transportation requests for order ${req.params.orderId}:`, error);
+      res.status(500).json({ message: "Failed to fetch transportation requests for order" });
+    }
+  });
+
+  app.get(`${apiPrefix}/carriers/:carrierId/transportation-requests`, async (req, res) => {
+    try {
+      const { carrierId } = req.params;
+      const requests = await storage.getTransportationRequestsByCarrierId(parseInt(carrierId));
+      res.json(requests);
+    } catch (error) {
+      console.error(`Error fetching transportation requests for carrier ${req.params.carrierId}:`, error);
+      res.status(500).json({ message: "Failed to fetch transportation requests for carrier" });
+    }
+  });
+
+  app.post(`${apiPrefix}/transportation-requests`, async (req, res) => {
+    try {
+      const request = await storage.createTransportationRequest(req.body);
+      res.status(201).json(request);
+    } catch (error) {
+      console.error("Error creating transportation request:", error);
+      res.status(500).json({ message: "Failed to create transportation request" });
+    }
+  });
+
+  app.put(`${apiPrefix}/transportation-requests/:id`, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updatedRequest = await storage.updateTransportationRequest(parseInt(id), req.body);
+      if (!updatedRequest) {
+        return res.status(404).json({ message: "Transportation request not found" });
+      }
+      res.json(updatedRequest);
+    } catch (error) {
+      console.error(`Error updating transportation request ${req.params.id}:`, error);
+      res.status(500).json({ message: "Failed to update transportation request" });
+    }
+  });
+
+  app.patch(`${apiPrefix}/transportation-requests/:id`, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updatedRequest = await storage.updateTransportationRequest(parseInt(id), req.body);
+      if (!updatedRequest) {
+        return res.status(404).json({ message: "Transportation request not found" });
+      }
+      res.json(updatedRequest);
+    } catch (error) {
+      console.error(`Error updating transportation request ${req.params.id} with PATCH:`, error);
+      res.status(500).json({ message: "Failed to update transportation request" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
