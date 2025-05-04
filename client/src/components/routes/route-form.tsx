@@ -220,7 +220,7 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
                             {field.value ? (
                               format(field.value, "PPP")
                             ) : (
-                              <span>{t("selectDate")}</span>
+                              <span>{t("select_date")}</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
