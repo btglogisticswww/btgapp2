@@ -91,10 +91,10 @@ const translations: Record<Language, Record<string, string>> = {
     "contactPerson": "Контактное лицо",
     
     // Transportation Requests
-    "transportationRequests": "Заявки на перевозку",
-    "addTransportationRequest": "Добавить заявку",
-    "editTransportationRequest": "Редактировать заявку",
-    "noTransportationRequests": "Для данного заказа нет заявок на перевозку",
+    "transportationRequests": "Транспортные заявки",
+    "addTransportationRequest": "Добавить транспортную заявку",
+    "editTransportationRequest": "Редактировать транспортную заявку",
+    "noTransportationRequests": "Для данного заказа нет транспортных заявок",
     "selectCarrier": "Выберите исполнителя",
     "transportationType": "Тип перевозки",
     "scheduledDate": "Запланированная дата",
@@ -107,10 +107,10 @@ const translations: Record<Language, Record<string, string>> = {
     "pending_approval": "Ожидает подтверждения",
     "carrier": "Исполнитель",
     "requestStatus": "Статус заявки",
-    "transportation_request_created": "Заявка создана",
-    "transportation_request_created_desc": "Новая заявка на перевозку успешно создана",
-    "transportation_request_updated": "Заявка обновлена",
-    "transportation_request_updated_desc": "Заявка на перевозку успешно обновлена",
+    "transportation_request_created": "Транспортная заявка создана",
+    "transportation_request_created_desc": "Новая транспортная заявка успешно создана",
+    "transportation_request_updated": "Транспортная заявка обновлена",
+    "transportation_request_updated_desc": "Транспортная заявка успешно обновлена",
     
     // Orders page
     "ordersManagement": "Управление заказами",
@@ -365,10 +365,10 @@ const translations: Record<Language, Record<string, string>> = {
     "contactPerson": "Contact Person",
     
     // Transportation Requests
-    "transportationRequests": "Transportation Requests",
-    "addTransportationRequest": "Add Request",
-    "editTransportationRequest": "Edit Request",
-    "noTransportationRequests": "No transportation requests for this order",
+    "transportationRequests": "Transport Requests",
+    "addTransportationRequest": "Add Transport Request",
+    "editTransportationRequest": "Edit Transport Request",
+    "noTransportationRequests": "No transport requests for this order",
     "selectCarrier": "Select Carrier",
     "transportationType": "Transportation Type",
     "scheduledDate": "Scheduled Date",
@@ -635,10 +635,10 @@ const translations: Record<Language, Record<string, string>> = {
     "contactPerson": "Kontaktperson",
     
     // Transportation Requests
-    "transportationRequests": "Transportanfragen",
-    "addTransportationRequest": "Anfrage hinzufügen",
-    "editTransportationRequest": "Anfrage bearbeiten",
-    "noTransportationRequests": "Keine Transportanfragen für diesen Auftrag",
+    "transportationRequests": "Transportanträge",
+    "addTransportationRequest": "Transportantrag hinzufügen",
+    "editTransportationRequest": "Transportantrag bearbeiten",
+    "noTransportationRequests": "Keine Transportanträge für diesen Auftrag",
     "selectCarrier": "Spediteur auswählen",
     "transportationType": "Transportart",
     "scheduledDate": "Geplantes Datum",
