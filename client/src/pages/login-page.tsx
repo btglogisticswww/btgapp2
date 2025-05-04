@@ -96,9 +96,9 @@ export default function LoginPage() {
         />
       </div>
       
-      <div className="relative flex flex-col items-center justify-center w-full max-w-md mx-auto px-4 sm:px-6 py-4 z-10 min-h-screen">
+      <div className="relative flex flex-col items-center justify-center w-full max-w-md mx-auto px-4 sm:px-6 py-8 z-10 min-h-screen">
         {/* Logo with burgundy background */}
-        <div className="w-full bg-primary py-3 px-5 rounded-t-lg shadow-md border-b border-primary/70">
+        <div className="w-full bg-primary py-3 px-5">
           <div className="flex items-center">
             <div className="flex items-center">
               <span className="text-3xl font-bold text-white">БТГ</span>
@@ -122,13 +122,13 @@ export default function LoginPage() {
           value={activeTab} 
           onValueChange={setActiveTab}
         >
-          <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="login">{t("login")}</TabsTrigger>
-            <TabsTrigger value="register">{t("register")}</TabsTrigger>
+          <TabsList className="w-full justify-start border-b border-border">
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground px-8" value="login">{t("login")}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground px-8" value="register">{t("register")}</TabsTrigger>
           </TabsList>
           
           {/* Login Form */}
-          <TabsContent value="login" className="w-full bg-white shadow-md p-5 sm:p-6 border-x border-gray-200">
+          <TabsContent value="login" className="w-full bg-white p-5 sm:p-6">
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-5 sm:mb-6 text-center">
               {t("loginTitle")}
             </h2>
@@ -213,7 +213,7 @@ export default function LoginPage() {
           </TabsContent>
           
           {/* Register Form */}
-          <TabsContent value="register" className="w-full bg-white shadow-md p-5 sm:p-6 border-x border-gray-200">
+          <TabsContent value="register" className="w-full bg-white p-5 sm:p-6">
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-5 sm:mb-6 text-center">
               {t("registerTitle")}
             </h2>
