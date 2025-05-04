@@ -389,7 +389,7 @@ export function OrderForm({ initialData, onSubmit, isSubmitting }: OrderFormProp
         </div>
         
         <div className="flex justify-end gap-4">
-          <Button type="button" variant="outline">
+          <Button type="button" variant="ghost">
             {t('cancel')}
           </Button>
           <Button type="submit" disabled={isSubmitting}>
