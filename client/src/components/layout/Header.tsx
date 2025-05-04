@@ -38,25 +38,48 @@ export default function Header({ title, toggleSidebar, toggleNotificationPanel }
         
         <div className="flex items-center space-x-4">
           {/* Language Selector */}
-          <div className="flex items-center space-x-2 text-sm">
+          <div className="relative">
             <button 
-              className={`${language === "ru" ? "font-medium underline" : "hover:underline"} text-white hover:text-white/70`}
-              onClick={() => setLanguage("ru")}
+              className="flex items-center text-white hover:text-white/70"
+              onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
             >
-              RU
+              <span className="text-sm mr-1">
+                {language === "ru" ? "Русский" : language === "en" ? "English" : "Deutsch"}
+              </span>
+              <ChevronDown className="h-4 w-4" />
             </button>
-            <button 
-              className={`${language === "en" ? "font-medium underline" : "hover:underline"} text-white hover:text-white/70`}
-              onClick={() => setLanguage("en")}
-            >
-              EN
-            </button>
-            <button 
-              className={`${language === "de" ? "font-medium underline" : "hover:underline"} text-white hover:text-white/70`}
-              onClick={() => setLanguage("de")}
-            >
-              DE
-            </button>
+            
+            {languageMenuOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-popover border border-border rounded-md shadow-lg py-1 z-10">
+                <button 
+                  className={`block px-4 py-2 text-sm w-full text-left ${language === "ru" ? "bg-accent text-accent-foreground" : "text-popover-foreground hover:bg-accent hover:text-accent-foreground"}`}
+                  onClick={() => {
+                    setLanguage("ru");
+                    setLanguageMenuOpen(false);
+                  }}
+                >
+                  Русский
+                </button>
+                <button 
+                  className={`block px-4 py-2 text-sm w-full text-left ${language === "en" ? "bg-accent text-accent-foreground" : "text-popover-foreground hover:bg-accent hover:text-accent-foreground"}`}
+                  onClick={() => {
+                    setLanguage("en");
+                    setLanguageMenuOpen(false);
+                  }}
+                >
+                  English
+                </button>
+                <button 
+                  className={`block px-4 py-2 text-sm w-full text-left ${language === "de" ? "bg-accent text-accent-foreground" : "text-popover-foreground hover:bg-accent hover:text-accent-foreground"}`}
+                  onClick={() => {
+                    setLanguage("de");
+                    setLanguageMenuOpen(false);
+                  }}
+                >
+                  Deutsch
+                </button>
+              </div>
+            )}
           </div>
           
           {/* Notifications */}
