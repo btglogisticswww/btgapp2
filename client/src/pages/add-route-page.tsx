@@ -18,6 +18,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon, Loader2 } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { Vehicle } from "@shared/schema";
 
 const formSchema = z.object({
   startPoint: z.string().min(2, { message: "Start point must be at least 2 characters." }),
@@ -28,7 +29,10 @@ const formSchema = z.object({
   startDate: z.date({
     required_error: "Please select a date.",
   }),
-  vehicleId: z.string().min(1, { message: "Vehicle ID is required" }),
+  vehicleId: z.number({
+    required_error: "Please select a vehicle.",
+    invalid_type_error: "Vehicle ID must be a number.",
+  }),
   orderId: z.number(),
 });
 
@@ -47,6 +51,12 @@ export default function AddRoutePage() {
     queryKey: [`/api/orders/${orderId}`],
     enabled: !isNaN(orderId)
   });
+  
+  // Get available vehicles
+  const { data: vehicles, isLoading: vehiclesLoading } = useQuery<Vehicle[]>({
+    queryKey: ["/api/vehicles"],
+    enabled: !isNaN(orderId)
+  });
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -54,7 +64,7 @@ export default function AddRoutePage() {
       startPoint: "",
       endPoint: "",
       status: "pending",
-      vehicleId: "",
+      vehicleId: undefined,
       orderId: orderId,
     },
   });
@@ -64,7 +74,6 @@ export default function AddRoutePage() {
       // Format the data before sending
       const formattedData = {
         ...data,
-        vehicleId: parseInt(data.vehicleId),
         startDate: data.startDate.toISOString(),
       };
       const res = await apiRequest("POST", "/api/routes", formattedData);
@@ -94,7 +103,7 @@ export default function AddRoutePage() {
     routeMutation.mutate(data);
   }
 
-  if (orderLoading) {
+  if (orderLoading || vehiclesLoading) {
     return (
       <MainLayout>
         <div className="flex items-center justify-center h-full">
@@ -226,15 +235,24 @@ export default function AddRoutePage() {
                       name="vehicleId"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{t("vehicleId")}</FormLabel>
-                          <FormControl>
-                            <Input 
-                              type="number" 
-                              placeholder={t("enter_vehicle_id")} 
-                              {...field} 
-                              onChange={(e) => field.onChange(e.target.value)}
-                            />
-                          </FormControl>
+                          <FormLabel>{t("vehicle")}</FormLabel>
+                          <Select 
+                            onValueChange={(value) => field.onChange(parseInt(value))}
+                            defaultValue={field.value?.toString()}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder={t("select_vehicle")} />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {vehicles?.map((vehicle) => (
+                                <SelectItem key={vehicle.id} value={vehicle.id.toString()}>
+                                  {vehicle.type} ({vehicle.regNumber})
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                           <FormMessage />
                         </FormItem>
                       )}
