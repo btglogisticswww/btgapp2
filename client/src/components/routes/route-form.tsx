@@ -84,11 +84,11 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
       queryClient.invalidateQueries({ queryKey: [`/api/orders/${orderId}/routes`] });
       onSuccess();
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       console.error("Route creation error:", error);
       toast({
         title: t("route_add_error"),
-        description: error.message,
+        description: error.message || t("error"),
         variant: "destructive",
       });
     },
@@ -115,11 +115,11 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
       queryClient.invalidateQueries({ queryKey: [`/api/orders/${orderId}/routes`] });
       onSuccess();
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       console.error("Route update error:", error);
       toast({
         title: t("route_update_error"),
-        description: error.message,
+        description: error.message || t("error"),
         variant: "destructive",
       });
     },
