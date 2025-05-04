@@ -7,7 +7,7 @@ import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "wouter";
+import { useLocation } from "wouter";
 import { clientValidationSchema, InsertClient } from "@shared/schema";
 
 import {
@@ -44,7 +44,7 @@ const formSchema = z.object({
 export default function CreateClientPage() {
   const { t } = useLanguage();
   const { toast } = useToast();
-  const [, navigate] = useRouter();
+  const [, navigate] = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Инициализируем форму с валидацией

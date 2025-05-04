@@ -7,7 +7,7 @@ import { z } from "zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter, useParams } from "wouter";
+import { useLocation, useParams } from "wouter";
 import { Client, clientValidationSchema } from "@shared/schema";
 import { Loader2 } from "lucide-react";
 
@@ -48,7 +48,7 @@ type FormData = z.infer<typeof formSchema>;
 export default function EditClientPage() {
   const { t } = useLanguage();
   const { toast } = useToast();
-  const [, navigate] = useRouter();
+  const [, navigate] = useLocation();
   const params = useParams<{ id: string }>();
   const clientId = parseInt(params.id);
   const [isSubmitting, setIsSubmitting] = useState(false);
