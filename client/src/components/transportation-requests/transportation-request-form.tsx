@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/popover";
 
 const formSchema = z.object({
+  requestNumber: z.string().min(5, { message: "Request number must be at least 5 characters" }),
   orderId: z.number().positive(),
   carrierId: z.number().positive(),
   price: z.coerce.number().positive(),
@@ -70,9 +71,17 @@ export function TransportationRequestForm({
     queryKey: ["/api/carriers"],
   });
 
+  // Helper function to generate transport request number
+  const generateRequestNumber = () => {
+    const prefix = "TRN-";
+    const randomId = Math.floor(100000 + Math.random() * 900000);
+    return `${prefix}${randomId}`;
+  };
+
   // Get default values
   const defaultValues = transportationRequest
     ? {
+        requestNumber: transportationRequest.requestNumber,
         orderId: transportationRequest.orderId,
         carrierId: transportationRequest.carrierId,
         price: transportationRequest.price,
@@ -81,6 +90,7 @@ export function TransportationRequestForm({
         notes: transportationRequest.notes,
       }
     : {
+        requestNumber: generateRequestNumber(),
         orderId: preselectedOrderId || 0,
         carrierId: 0,
         price: 0,
@@ -105,6 +115,7 @@ export function TransportationRequestForm({
   useEffect(() => {
     if (transportationRequest) {
       form.reset({
+        requestNumber: transportationRequest.requestNumber,
         orderId: transportationRequest.orderId,
         carrierId: transportationRequest.carrierId,
         price: transportationRequest.price,
@@ -223,6 +234,26 @@ export function TransportationRequestForm({
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Request Number */}
+                  <FormField
+                    control={form.control}
+                    name="requestNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("requestNumber")}</FormLabel>
+                        <FormControl>
+                          <Input 
+                            {...field} 
+                            disabled={!!transportationRequest}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t("requestNumberDescription")}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   {/* Order selection */}
                   <FormField
                     control={form.control}

@@ -98,6 +98,8 @@ const translations: Record<Language, Record<string, string>> = {
     "editTransportationRequest": "Редактировать транспортную заявку",
     "noTransportationRequests": "Для данного заказа нет транспортных заявок",
     "Transportation request not found": "Транспортная заявка не найдена",
+    "requestNumber": "Номер заявки",
+    "requestNumberDescription": "Уникальный идентификатор транспортной заявки",
     "selectCarrier": "Выберите исполнителя",
     "transportationType": "Тип перевозки",
     "scheduledDate": "Запланированная дата",
