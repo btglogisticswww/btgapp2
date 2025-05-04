@@ -4,8 +4,10 @@ import { useRoute } from "wouter";
 import { useLanguage } from "@/hooks/use-language";
 import MainLayout from "@/components/layout/MainLayout";
 import { useQuery } from "@tanstack/react-query";
-import { Order, Client, Route, Carrier, Vehicle } from "@shared/schema";
+import { Order, Client, Route as RouteType, Carrier, Vehicle } from "@shared/schema";
 import { formatCurrency, formatDate, getStatusColors } from "@/lib/utils";
+import RouteForm from "@/components/routes/route-form";
+import RouteCard from "@/components/routes/route-card";
 import { 
   Loader2,
   ArrowLeft,
@@ -51,6 +53,10 @@ export default function OrderDetailPage() {
   const { t } = useLanguage();
   const [, params] = useRoute('/orders/:id');
   const orderId = params?.id ? parseInt(params.id) : 0;
+  
+  // State for route forms
+  const [addingRoute, setAddingRoute] = useState(false);
+  const [editingRouteId, setEditingRouteId] = useState<number | null>(null);
 
   // Fetch order data
   const { data: order, isLoading: orderLoading } = useQuery<Order>({
