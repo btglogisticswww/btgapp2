@@ -418,7 +418,7 @@ export default function OrderDetailPage() {
             ) : (
               <Card>
                 <CardContent className="p-6 text-center">
-                  <p>{t('No client information available')}</p>
+                  <p>{t('noClientInformation')}</p>
                 </CardContent>
               </Card>
             )}
@@ -547,7 +547,7 @@ export default function OrderDetailPage() {
             ) : (
               <Card>
                 <CardContent className="p-6 text-center">
-                  <p>{t('No carriers assigned to this order')}</p>
+                  <p>{t('noCarriersAssigned')}</p>
                 </CardContent>
               </Card>
             )}

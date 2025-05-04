@@ -84,6 +84,9 @@ const translations: Record<Language, Record<string, string>> = {
     "No client information available": "Информация о клиенте отсутствует",
     "No routes available for this order": "Для данного заказа нет маршрутов",
     "No carriers assigned to this order": "К данному заказу не привязаны исполнители",
+    "noClientInformation": "Информация о клиенте отсутствует",
+    "noRoutesAvailable": "Для данного заказа нет маршрутов",
+    "noCarriersAssigned": "К данному заказу не привязаны исполнители",
     "contactPerson": "Контактное лицо",
     
     // Orders page
@@ -332,6 +335,9 @@ const translations: Record<Language, Record<string, string>> = {
     "No client information available": "No client information available",
     "No routes available for this order": "No routes available for this order",
     "No carriers assigned to this order": "No carriers assigned to this order",
+    "noClientInformation": "No client information available",
+    "noRoutesAvailable": "No routes available for this order",
+    "noCarriersAssigned": "No carriers assigned to this order",
     "contactPerson": "Contact Person",
     
     // Orders page
@@ -580,6 +586,9 @@ const translations: Record<Language, Record<string, string>> = {
     "No client information available": "Keine Kundeninformationen verfügbar",
     "No routes available for this order": "Keine Routen für diesen Auftrag verfügbar",
     "No carriers assigned to this order": "Keine Spediteure diesem Auftrag zugewiesen",
+    "noClientInformation": "Keine Kundeninformationen verfügbar",
+    "noRoutesAvailable": "Keine Routen für diesen Auftrag verfügbar",
+    "noCarriersAssigned": "Keine Spediteure diesem Auftrag zugewiesen",
     "contactPerson": "Kontaktperson",
     
     // Orders page
