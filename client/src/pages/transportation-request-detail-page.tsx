@@ -1,7 +1,6 @@
 import { useRoute, Link } from "wouter";
 import { useLanguage } from "@/hooks/use-language";
 import { useQuery } from "@tanstack/react-query";
-import { Helmet } from "react-helmet-async";
 import MainLayout from "@/components/layout/MainLayout";
 import { TransportationRequest, Order, Carrier } from "@shared/schema";
 import { Button } from "@/components/ui/button";
@@ -56,10 +55,7 @@ export default function TransportationRequestDetailPage() {
 
   if (isLoading) {
     return (
-      <MainLayout>
-        <Helmet>
-          <title>{t("transportationRequestDetails")} | BTG Logistics</title>
-        </Helmet>
+      <MainLayout title={t("transportationRequestDetails")}>
         <div className="flex items-center justify-center min-h-[70vh]">
           <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
         </div>
@@ -69,10 +65,7 @@ export default function TransportationRequestDetailPage() {
 
   if (!request) {
     return (
-      <MainLayout>
-        <Helmet>
-          <title>{t("transportationRequestDetails")} | BTG Logistics</title>
-        </Helmet>
+      <MainLayout title={t("transportationRequestDetails")}>
         <div className="p-6">
           <Link href="/transportation-requests">
             <Button variant="ghost" className="mb-6">
@@ -92,12 +85,7 @@ export default function TransportationRequestDetailPage() {
   }
 
   return (
-    <MainLayout>
-      <Helmet>
-        <title>
-          {t("transportationRequestDetails")} #{request.id} | BTG Logistics
-        </title>
-      </Helmet>
+    <MainLayout title={`${t("transportationRequestDetails")} #${request.id}`}>
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { useLanguage } from "@/hooks/use-language";
 import { useQuery } from "@tanstack/react-query";
-import { Helmet } from "react-helmet-async";
 import MainLayout from "@/components/layout/MainLayout";
 import { TransportationRequestList } from "@/components/transportation-requests/transportation-request-list";
 import { TransportationRequest } from "@shared/schema";
@@ -40,10 +39,7 @@ export default function TransportationRequestsPage() {
   }) || [];
 
   return (
-    <MainLayout>
-      <Helmet>
-        <title>{t("transportationRequests")} | BTG Logistics</title>
-      </Helmet>
+    <MainLayout title={t("transportationRequests")}>
       <div className="p-6">
         <div className="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
           <h1 className="text-2xl font-bold">{t("transportationRequests")}</h1>

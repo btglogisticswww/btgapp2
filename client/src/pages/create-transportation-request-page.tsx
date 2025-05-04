@@ -1,6 +1,5 @@
 import { useRoute } from "wouter";
 import { useLanguage } from "@/hooks/use-language";
-import { Helmet } from "react-helmet-async";
 import MainLayout from "@/components/layout/MainLayout";
 import { TransportationRequestForm } from "@/components/transportation-requests/transportation-request-form";
 
@@ -10,10 +9,7 @@ export default function CreateTransportationRequestPage() {
   const orderId = matched && params?.id ? parseInt(params.id) : undefined;
 
   return (
-    <MainLayout>
-      <Helmet>
-        <title>{t("createTransportationRequest")} | BTG Logistics</title>
-      </Helmet>
+    <MainLayout title={t("createTransportationRequest")}>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-6">{t("createTransportationRequest")}</h1>
         <TransportationRequestForm preselectedOrderId={orderId} />

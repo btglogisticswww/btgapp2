@@ -1,7 +1,6 @@
 import { useRoute } from "wouter";
 import { useLanguage } from "@/hooks/use-language";
 import { useQuery } from "@tanstack/react-query";
-import { Helmet } from "react-helmet-async";
 import MainLayout from "@/components/layout/MainLayout";
 import { TransportationRequestForm } from "@/components/transportation-requests/transportation-request-form";
 import { TransportationRequest } from "@shared/schema";
@@ -24,14 +23,7 @@ export default function EditTransportationRequestPage() {
   });
 
   return (
-    <MainLayout>
-      <Helmet>
-        <title>
-          {isLoading
-            ? t("loading")
-            : `${t("editTransportationRequest")} #${requestId} | BTG Logistics`}
-        </title>
-      </Helmet>
+    <MainLayout title={isLoading ? t("loading") : `${t("editTransportationRequest")} #${requestId}`}>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-6">
           {isLoading
