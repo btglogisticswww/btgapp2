@@ -521,7 +521,7 @@ export default function OrderDetailPage() {
                         {carrier.contactPerson && (
                           <div className="flex items-center">
                             <User className="h-4 w-4 mr-2 text-muted-foreground" />
-                            <span className="text-muted-foreground mr-1">{t('contact_person')}:</span>
+                            <span className="text-muted-foreground mr-1">{t('contactPerson')}:</span>
                             <span>{carrier.contactPerson}</span>
                           </div>
                         )}

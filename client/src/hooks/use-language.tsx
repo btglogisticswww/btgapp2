@@ -70,6 +70,19 @@ const translations: Record<Language, Record<string, string>> = {
     "preparing": "Подготовка",
     "waiting": "Ожидание",
     
+    // Order details
+    "origin": "Пункт отправления",
+    "destination": "Пункт назначения",
+    "cost": "Себестоимость",
+    "clientDetails": "Информация о клиенте",
+    "viewClientProfile": "Профиль клиента",
+    "viewRouteDetails": "Детали маршрута",
+    "viewCarrierProfile": "Профиль перевозчика",
+    "No client information available": "Информация о клиенте отсутствует",
+    "No routes available for this order": "Для данного заказа нет маршрутов",
+    "No carriers assigned to this order": "К данному заказу не привязаны перевозчики",
+    "contactPerson": "Контактное лицо",
+    
     // Orders page
     "ordersManagement": "Управление заказами",
     "search": "Поиск",
@@ -272,6 +285,19 @@ const translations: Record<Language, Record<string, string>> = {
     "preparing": "Preparing",
     "waiting": "Waiting",
     
+    // Order details
+    "origin": "Origin",
+    "destination": "Destination",
+    "cost": "Cost",
+    "clientDetails": "Client Details",
+    "viewClientProfile": "View Client Profile",
+    "viewRouteDetails": "View Route Details",
+    "viewCarrierProfile": "View Carrier Profile",
+    "No client information available": "No client information available",
+    "No routes available for this order": "No routes available for this order",
+    "No carriers assigned to this order": "No carriers assigned to this order",
+    "contactPerson": "Contact Person",
+    
     // Orders page
     "ordersManagement": "Orders Management",
     "search": "Search",
@@ -473,6 +499,19 @@ const translations: Record<Language, Record<string, string>> = {
     "in_transit": "In Transit",
     "preparing": "In Vorbereitung",
     "waiting": "Warten",
+    
+    // Order details
+    "origin": "Herkunft",
+    "destination": "Ziel",
+    "cost": "Kosten",
+    "clientDetails": "Kundendetails",
+    "viewClientProfile": "Kundenprofil anzeigen",
+    "viewRouteDetails": "Routendetails anzeigen",
+    "viewCarrierProfile": "Speditionsprofil anzeigen",
+    "No client information available": "Keine Kundeninformationen verfügbar",
+    "No routes available for this order": "Keine Routen für diesen Auftrag verfügbar",
+    "No carriers assigned to this order": "Keine Spediteure diesem Auftrag zugewiesen",
+    "contactPerson": "Kontaktperson",
     
     // Orders page
     "ordersManagement": "Auftragsverwaltung",
