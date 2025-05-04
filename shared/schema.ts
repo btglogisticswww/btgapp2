@@ -162,6 +162,27 @@ export type Task = InferSelectModel<typeof tasks>;
 export const insertTaskSchema = createInsertSchema(tasks);
 export type InsertTask = z.infer<typeof insertTaskSchema>;
 
+// Transportation Requests
+export const transportationRequests = pgTable("transportation_requests", {
+  id: serial("id").primaryKey(),
+  orderId: integer("order_id").references(() => orders.id).notNull(),
+  carrierId: integer("carrier_id").references(() => carriers.id).notNull(),
+  requestNumber: text("request_number").notNull(),
+  description: text("description"),
+  cargoDetails: text("cargo_details"),
+  price: decimal("price", { precision: 10, scale: 2 }),
+  status: text("status").notNull().default("pending"),
+  requestDate: date("request_date").notNull(),
+  deliveryDate: date("delivery_date"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export type TransportationRequest = InferSelectModel<typeof transportationRequests>;
+export const insertTransportationRequestSchema = createInsertSchema(transportationRequests);
+export type InsertTransportationRequest = z.infer<typeof insertTransportationRequestSchema>;
+
 // Notifications
 export const notifications = pgTable("notifications", {
   id: serial("id").primaryKey(),
@@ -226,6 +247,17 @@ export const taskValidationSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
   status: z.string().default("pending"),
   priority: z.string().default("medium"),
+});
+
+export const transportationRequestValidationSchema = z.object({
+  orderId: z.number(),
+  carrierId: z.number(),
+  requestNumber: z.string().min(5, "Request number must be at least 5 characters"),
+  status: z.string().default("pending"),
+  requestDate: z.date(),
+  description: z.string().optional(),
+  cargoDetails: z.string().optional(),
+  price: z.number().optional()
 });
 
 export const notificationValidationSchema = z.object({
