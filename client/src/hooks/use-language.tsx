@@ -116,6 +116,16 @@ const translations: Record<Language, Record<string, string>> = {
     "transportation_request_created_desc": "Новая транспортная заявка успешно создана",
     "transportation_request_updated": "Транспортная заявка обновлена",
     "transportation_request_updated_desc": "Транспортная заявка успешно обновлена",
+    "success": "Успешно",
+    "transportationRequestCreated": "Транспортная заявка успешно создана",
+    "transportationRequestUpdated": "Транспортная заявка успешно обновлена",
+    "selectOrder": "Выберите заказ",
+    "orderDescription": "Заказ, к которому привязана заявка",
+    "pickDate": "Выберите дату",
+    "deadlineDescription": "Крайний срок выполнения заявки",
+    "statusDescription": "Текущий статус заявки",
+    "carrierDescription": "Исполнитель транспортировки",
+    "priceDescription": "Стоимость перевозки",
     
     // Orders page
     "ordersManagement": "Управление заказами",

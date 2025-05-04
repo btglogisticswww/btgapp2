@@ -24,7 +24,7 @@ export default function TransportationRequestCard({
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
           <CardTitle className="flex items-center gap-2">
-            <span>#{request.id}</span>
+            <span>{request.requestNumber || `TRN-${request.id}`}</span>
             <Badge
               variant="outline"
               className={`${getStatusColor(request.status)}`}
