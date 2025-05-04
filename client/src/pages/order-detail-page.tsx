@@ -8,6 +8,7 @@ import { Order, Client, Route, Carrier, Vehicle } from "@shared/schema";
 import { formatCurrency, formatDate, getStatusColors } from "@/lib/utils";
 import RouteForm from "@/components/routes/route-form";
 import RouteCard from "@/components/routes/route-card";
+import TransportationRequestList from "@/components/transportation-requests/transportation-request-list";
 import { 
   Loader2,
   ArrowLeft,
@@ -53,7 +54,7 @@ export default function OrderDetailPage() {
   // State for route forms and active tab
   const [addingRoute, setAddingRoute] = useState(false);
   const [editingRouteId, setEditingRouteId] = useState<number | null>(null);
-  const [activeTab, setActiveTab] = useState(tabFromUrl && ["general", "cargo", "financial", "client", "routes", "carriers"].includes(tabFromUrl) ? tabFromUrl : "general");
+  const [activeTab, setActiveTab] = useState(tabFromUrl && ["general", "cargo", "financial", "client", "routes", "carriers", "transportation"].includes(tabFromUrl) ? tabFromUrl : "general");
 
   // Fetch order data
   const { data: order, isLoading: orderLoading } = useQuery<Order>({
@@ -246,6 +247,7 @@ export default function OrderDetailPage() {
             <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="client">{t('clientInfo')}</TabsTrigger>
             <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="routes">{t('routeInfo')}</TabsTrigger>
             <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="carriers">{t('carrierInfo')}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="transportation">{t('transportationRequests')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="general" className="mt-6">
