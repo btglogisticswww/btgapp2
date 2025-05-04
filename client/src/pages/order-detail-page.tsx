@@ -113,11 +113,11 @@ export default function OrderDetailPage() {
   useEffect(() => {
     const fetchCarriersForVehicles = async () => {
       if (!routes?.length) return;
-      
+
       setCarriersLoading(true);
       try {
         const vehicleIds = routes.map(route => route.vehicleId).filter(Boolean);
-        
+
         if (vehicleIds.length === 0) {
           setCarriersLoading(false);
           return;
@@ -127,22 +127,22 @@ export default function OrderDetailPage() {
         const vehiclesPromises = vehicleIds.map(id => 
           fetch(`/api/vehicles/${id}`).then(res => res.json())
         );
-        
+
         const vehicles = await Promise.all(vehiclesPromises);
-        
+
         // Then get carriers for these vehicles
         const carrierIds = vehicles.map(vehicle => vehicle.carrierId).filter(Boolean);
         const uniqueCarrierIds = Array.from(new Set(carrierIds));
-        
+
         if (uniqueCarrierIds.length === 0) {
           setCarriersLoading(false);
           return;
         }
-        
+
         const carriersPromises = uniqueCarrierIds.map(id => 
           fetch(`/api/carriers/${id}`).then(res => res.json())
         );
-        
+
         const fetchedCarriers = await Promise.all(carriersPromises);
         setCarriers(fetchedCarriers);
       } catch (error) {
@@ -343,12 +343,12 @@ export default function OrderDetailPage() {
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <h3 className="text-lg font-semibold mb-4">{t('contactInfo')}</h3>
+                      <h3 className="text-lg font-semibold mb-4">{t('contact')}</h3>
                       <div className="space-y-3">
                         {client.contactPerson && (
                           <div className="flex items-center">
                             <User className="h-4 w-4 mr-2 text-muted-foreground" />
-                            <span className="text-muted-foreground mr-1">{t('contact_person')}:</span>
+                            <span className="text-muted-foreground mr-1">{t('contactPerson')}:</span>
                             <span>{client.contactPerson}</span>
                           </div>
                         )}
@@ -415,7 +415,7 @@ export default function OrderDetailPage() {
                         </Badge>
                       </div>
                       <CardDescription>
-                        {t('routeId')}: {route.id}
+                        {t('id')}: {route.id}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
