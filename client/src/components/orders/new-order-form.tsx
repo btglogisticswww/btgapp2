@@ -392,7 +392,15 @@ export function NewOrderForm({ initialData, onSubmit, isSubmitting }: OrderFormP
           </Card>
         </div>
         
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-4">
+          <Button 
+            type="button"
+            variant="outline"
+            onClick={() => window.history.back()}
+            className="w-full md:w-auto"
+          >
+            {t('cancel')}
+          </Button>
           <Button 
             type="submit"
             disabled={isSubmitting}
