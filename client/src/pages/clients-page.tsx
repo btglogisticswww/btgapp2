@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLanguage } from "@/hooks/use-language";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "wouter";
 import MainLayout from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ClientDialog } from "@/components/clients/client-dialog";
 import { Plus, Search, RefreshCw, Edit, Mail, Phone } from "lucide-react";
 import { Client } from "@shared/schema";
 
@@ -15,8 +15,7 @@ export default function ClientsPage() {
   const { t } = useLanguage();
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
+  // Удалены переменные для модального окна, теперь используем страницы
 
   const { data: clients = [], isLoading, refetch } = useQuery<Client[]>({
     queryKey: ["/api/clients"],
@@ -29,35 +28,18 @@ export default function ClientsPage() {
     (client.phone && client.phone.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  const handleAddNewClient = () => {
-    setSelectedClient(null);
-    setIsDialogOpen(true);
-  };
-
-  const handleEditClient = (client: Client) => {
-    setSelectedClient(client);
-    setIsDialogOpen(true);
-  };
-
-  const handleCloseDialog = (refreshNeeded: boolean = false) => {
-    setIsDialogOpen(false);
-    if (refreshNeeded) {
-      refetch();
-      toast({
-        title: selectedClient ? t("client_updated") : t("client_created"),
-        description: selectedClient ? t("client_updated_desc") : t("client_created_desc"),
-      });
-    }
-  };
+  // Заменяем обработчики модальных окон на переходы на страницы
 
   return (
     <MainLayout title={t("clients")}>
       <div className="p-6 space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">{t("clients")}</h1>
-          <Button onClick={handleAddNewClient}>
-            <Plus className="mr-2 h-4 w-4" /> {t("add_client")}
-          </Button>
+          <Link href="/clients/create">
+            <Button>
+              <Plus className="mr-2 h-4 w-4" /> {t("add_client")}
+            </Button>
+          </Link>
         </div>
 
         <Card>

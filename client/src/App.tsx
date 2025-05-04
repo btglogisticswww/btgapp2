@@ -15,6 +15,8 @@ import CreateOrderPage from "@/pages/create-order-page";
 import EditOrderPage from "@/pages/edit-order-page";
 import RoutesPage from "@/pages/routes-page";
 import ClientsPage from "@/pages/clients-page";
+import CreateClientPage from "@/pages/create-client-page";
+import EditClientPage from "@/pages/edit-client-page";
 import CarriersPage from "@/pages/carriers-page";
 
 function Router() {
@@ -29,6 +31,8 @@ function Router() {
       <ProtectedRoute path="/orders/:id" component={OrderDetailPage} />
       <ProtectedRoute path="/routes" component={RoutesPage} />
       <ProtectedRoute path="/clients" component={ClientsPage} />
+      <ProtectedRoute path="/clients/create" component={CreateClientPage} />
+      <ProtectedRoute path="/clients/:id/edit" component={EditClientPage} />
       <ProtectedRoute path="/carriers" component={CarriersPage} />
       <Route component={NotFound} />
     </Switch>
