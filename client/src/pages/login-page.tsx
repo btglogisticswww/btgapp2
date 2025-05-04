@@ -317,19 +317,19 @@ export default function LoginPage() {
               className={`${language === "ru" ? "font-medium underline" : "hover:underline"} cursor-pointer`}
               onClick={() => setLanguage("ru")}
             >
-              Русский
+              RU
             </button>
             <button 
               className={`${language === "en" ? "font-medium underline" : "hover:underline"} cursor-pointer`}
               onClick={() => setLanguage("en")}
             >
-              English
+              EN
             </button>
             <button 
               className={`${language === "de" ? "font-medium underline" : "hover:underline"} cursor-pointer`}
               onClick={() => setLanguage("de")}
             >
-              Deutsch
+              DE
             </button>
           </div>
           
