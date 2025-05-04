@@ -44,7 +44,7 @@ export default function Header({ title, toggleSidebar, toggleNotificationPanel }
               onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
             >
               <span className="text-sm mr-1">
-                {language === "ru" ? "Русский" : language === "en" ? "English" : "Deutsch"}
+                {language === "ru" ? "RU" : language === "en" ? "EN" : "DE"}
               </span>
               <ChevronDown className="h-4 w-4" />
             </button>
@@ -58,7 +58,7 @@ export default function Header({ title, toggleSidebar, toggleNotificationPanel }
                     setLanguageMenuOpen(false);
                   }}
                 >
-                  Русский
+                  RU
                 </button>
                 <button 
                   className={`block px-4 py-2 text-sm w-full text-left ${language === "en" ? "bg-accent text-accent-foreground" : "text-popover-foreground hover:bg-accent hover:text-accent-foreground"}`}
@@ -67,7 +67,7 @@ export default function Header({ title, toggleSidebar, toggleNotificationPanel }
                     setLanguageMenuOpen(false);
                   }}
                 >
-                  English
+                  EN
                 </button>
                 <button 
                   className={`block px-4 py-2 text-sm w-full text-left ${language === "de" ? "bg-accent text-accent-foreground" : "text-popover-foreground hover:bg-accent hover:text-accent-foreground"}`}
@@ -76,7 +76,7 @@ export default function Header({ title, toggleSidebar, toggleNotificationPanel }
                     setLanguageMenuOpen(false);
                   }}
                 >
-                  Deutsch
+                  DE
                 </button>
               </div>
             )}
