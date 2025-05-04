@@ -74,7 +74,14 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
       if (!res.ok) {
         throw new Error(`Error creating route: ${res.status}`);
       }
-      return await res.json();
+      
+      try {
+        return await res.json();
+      } catch (e) {
+        // If parsing JSON fails, throw a more descriptive error
+        console.error('Failed to parse server response:', e);
+        throw new Error(t("error"));
+      }
     },
     onSuccess: () => {
       toast({
@@ -105,7 +112,14 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
       if (!res.ok) {
         throw new Error(`Error updating route: ${res.status}`);
       }
-      return await res.json();
+      
+      try {
+        return await res.json();
+      } catch (e) {
+        // If parsing JSON fails, throw a more descriptive error
+        console.error('Failed to parse server response:', e);
+        throw new Error(t("error"));
+      }
     },
     onSuccess: () => {
       toast({

@@ -255,6 +255,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to update route" });
     }
   });
+  
+  // Add PATCH endpoint for routes (same functionality as PUT but matches client request method)
+  app.patch(`${apiPrefix}/routes/:id`, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updatedRoute = await storage.updateRoute(parseInt(id), req.body);
+      if (!updatedRoute) {
+        return res.status(404).json({ message: "Route not found" });
+      }
+      res.json(updatedRoute);
+    } catch (error) {
+      console.error(`Error updating route ${req.params.id} with PATCH:`, error);
+      res.status(500).json({ message: "Failed to update route" });
+    }
+  });
 
   // Vehicles API
   app.get(`${apiPrefix}/vehicles`, async (req, res) => {
