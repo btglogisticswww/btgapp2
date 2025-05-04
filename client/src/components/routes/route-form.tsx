@@ -156,7 +156,7 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
                   <FormItem>
                     <FormLabel>{t("startPoint")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("enterStartPoint")} {...field} />
+                      <Input placeholder={t("enter_start_point")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -170,7 +170,7 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
                   <FormItem>
                     <FormLabel>{t("endPoint")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("enterEndPoint")} {...field} />
+                      <Input placeholder={t("enter_end_point")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
