@@ -72,8 +72,8 @@ export default function CreateClientPage() {
       
       // Показываем уведомление об успехе
       toast({
-        title: t("success"),
-        description: t("client_created_successfully"),
+        title: t("client_created"),
+        description: t("client_created_desc"),
       });
       
       // Перенаправляем на страницу клиентов
@@ -83,7 +83,7 @@ export default function CreateClientPage() {
       // Показываем уведомление об ошибке
       toast({
         title: t("error"),
-        description: error.message || t("client_creation_failed"),
+        description: error.message || t("client_creation_error"),
         variant: "destructive",
       });
     },
