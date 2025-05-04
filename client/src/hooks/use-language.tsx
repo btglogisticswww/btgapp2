@@ -29,6 +29,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Navigation
     "dashboard": "Главная",
     "orders": "Заказы",
+    "orderLabel": "Заказ",
     "routes": "Маршруты",
     "clients": "Клиенты",
     "carriers": "Исполнители",
@@ -280,6 +281,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Navigation
     "dashboard": "Dashboard",
     "orders": "Orders",
+    "orderLabel": "Order",
     "routes": "Routes",
     "clients": "Clients",
     "carriers": "Carriers",
@@ -531,6 +533,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Navigation
     "dashboard": "Dashboard",
     "orders": "Aufträge",
+    "orderLabel": "Auftrag",
     "routes": "Routen",
     "clients": "Kunden",
     "carriers": "Spediteure",

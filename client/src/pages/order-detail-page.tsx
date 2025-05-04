@@ -223,7 +223,7 @@ export default function OrderDetailPage() {
                 {t('back')}
               </Button>
             </Link>
-            <h1 className="text-2xl font-bold">{t('order')} {order.orderNumber}</h1>
+            <h1 className="text-2xl font-bold">{t('orderLabel')} {order.orderNumber}</h1>
             <Badge variant="secondary" className={`${statusColors.bg} ${statusColors.text} border-0`}>
               {t(status)}
             </Badge>
