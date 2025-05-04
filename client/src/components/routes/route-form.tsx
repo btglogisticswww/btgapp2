@@ -71,7 +71,10 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
         startDate: data.startDate.toISOString(),
       };
       const res = await apiRequest("POST", "/api/routes", formattedData);
-      return res.json();
+      if (!res.ok) {
+        throw new Error(`Error creating route: ${res.status}`);
+      }
+      return await res.json();
     },
     onSuccess: () => {
       toast({
@@ -99,7 +102,10 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
         startDate: data.startDate.toISOString(),
       };
       const res = await apiRequest("PATCH", `/api/routes/${route.id}`, formattedData);
-      return res.json();
+      if (!res.ok) {
+        throw new Error(`Error updating route: ${res.status}`);
+      }
+      return await res.json();
     },
     onSuccess: () => {
       toast({
@@ -150,7 +156,7 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
                   <FormItem>
                     <FormLabel>{t("startPoint")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("enter_start_point")} {...field} />
+                      <Input placeholder={t("enterStartPoint")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -164,7 +170,7 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
                   <FormItem>
                     <FormLabel>{t("endPoint")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("enter_end_point")} {...field} />
+                      <Input placeholder={t("enterEndPoint")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -180,7 +186,7 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder={t("select_status")} />
+                          <SelectValue placeholder={t("selectStatus")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -214,7 +220,7 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
                             {field.value ? (
                               format(field.value, "PPP")
                             ) : (
-                              <span>{t("select_date")}</span>
+                              <span>{t("selectDate")}</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
@@ -246,7 +252,7 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder={t("select_vehicle")} />
+                          <SelectValue placeholder={t("selectVehicle")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
