@@ -75,7 +75,7 @@ export default function OrderDetailPage() {
   });
 
   // Fetch routes for this order
-  const { data: routes, isLoading: routesLoading } = useQuery<Route[]>({
+  const { data: routes, isLoading: routesLoading, refetch: refetchRoutes } = useQuery<Route[]>({
     queryKey: ["/api/orders", orderId, "routes"],
     queryFn: async () => {
       const response = await fetch(`/api/orders/${orderId}/routes`);
@@ -85,6 +85,7 @@ export default function OrderDetailPage() {
       return await response.json();
     },
     enabled: !!orderId,
+    refetchOnWindowFocus: true,
   });
 
   // Fetch carrier
@@ -419,7 +420,10 @@ export default function OrderDetailPage() {
                 <RouteForm 
                   orderId={order.id} 
                   onCancel={() => setAddingRoute(false)} 
-                  onSuccess={() => setAddingRoute(false)} 
+                  onSuccess={() => {
+                    setAddingRoute(false);
+                    refetchRoutes();
+                  }} 
                 />
               </div>
             )}
@@ -433,7 +437,10 @@ export default function OrderDetailPage() {
                         orderId={order.id} 
                         route={route}
                         onCancel={() => setEditingRouteId(null)} 
-                        onSuccess={() => setEditingRouteId(null)} 
+                        onSuccess={() => {
+                          setEditingRouteId(null);
+                          refetchRoutes();
+                        }} 
                       />
                     </div>
                   ) : (
