@@ -59,13 +59,13 @@ export default function TransportationRequestsPage() {
         </div>
         
         <Tabs value={statusFilter} onValueChange={setStatusFilter} className="mb-6">
-          <TabsList className="mb-2">
-            <TabsTrigger value="all">{t("all")}</TabsTrigger>
-            <TabsTrigger value="pending">{t("pending")}</TabsTrigger>
-            <TabsTrigger value="accepted">{t("accepted")}</TabsTrigger>
-            <TabsTrigger value="rejected">{t("rejected")}</TabsTrigger>
-            <TabsTrigger value="completed">{t("completed")}</TabsTrigger>
-            <TabsTrigger value="cancelled">{t("cancelled")}</TabsTrigger>
+          <TabsList className="w-full justify-start border-b border-border mb-6">
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="all">{t("all")}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="pending">{t("pending")}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="accepted">{t("accepted")}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="rejected">{t("rejected")}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="completed">{t("completed")}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="cancelled">{t("cancelled")}</TabsTrigger>
           </TabsList>
         </Tabs>
 

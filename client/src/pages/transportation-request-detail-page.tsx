@@ -117,10 +117,10 @@ export default function TransportationRequestDetailPage() {
         </div>
 
         <Tabs defaultValue="general" className="w-full">
-          <TabsList className="mb-4">
-            <TabsTrigger value="general">{t("generalInfo")}</TabsTrigger>
-            <TabsTrigger value="order">{t("orderDetails")}</TabsTrigger>
-            {request.notes && <TabsTrigger value="notes">{t("notes")}</TabsTrigger>}
+          <TabsList className="w-full justify-start border-b border-border mb-6">
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="general">{t("generalInfo")}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="order">{t("orderDetails")}</TabsTrigger>
+            {request.notes && <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="notes">{t("notes")}</TabsTrigger>}
           </TabsList>
           
           <TabsContent value="general" className="space-y-4">
