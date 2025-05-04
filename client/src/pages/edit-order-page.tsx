@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { MainLayout } from "@/components/layout/MainLayout";
+import MainLayout from "@/components/layout/MainLayout";
 import { useLanguage } from "@/hooks/use-language";
-import { OrderForm, OrderFormData } from "@/components/orders/order-form";
+import { NewOrderForm, OrderFormData } from "@/components/orders/new-order-form";
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useLocation, useParams } from 'wouter';
@@ -88,7 +88,7 @@ export default function EditOrderPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <OrderForm 
+            <NewOrderForm 
               initialData={order}
               onSubmit={handleSubmit} 
               isSubmitting={updateOrderMutation.isPending} 

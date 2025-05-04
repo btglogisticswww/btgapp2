@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '@/hooks/use-language';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -16,7 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 // Define a schema for the form
 const formSchema = z.object({
   orderNumber: z.string().min(3, { message: 'Order number must be at least 3 characters' }),
-  clientId: z.number().int().positive(),
+  clientId: z.coerce.number().int().positive(),
   type: z.string().min(2, { message: 'Type must be at least 2 characters' }),
   status: z.string(),
   orderDate: z.string(),
@@ -29,7 +29,7 @@ const formSchema = z.object({
   destinationAddress: z.string().min(3, { message: 'Destination address is required' }),
   route: z.string().optional().nullable(),
   notes: z.string().optional().nullable(),
-  managerId: z.number().int().positive().optional().nullable(),
+  managerId: z.coerce.number().int().positive().optional().nullable(),
 });
 
 export type OrderFormData = z.infer<typeof formSchema>;
@@ -40,7 +40,7 @@ interface OrderFormProps {
   isSubmitting: boolean;
 }
 
-export function OrderForm({ initialData, onSubmit, isSubmitting }: OrderFormProps) {
+export function NewOrderForm({ initialData, onSubmit, isSubmitting }: OrderFormProps) {
   const { t } = useLanguage();
   
   // Fetch clients
@@ -69,9 +69,9 @@ export function OrderForm({ initialData, onSubmit, isSubmitting }: OrderFormProp
     }
   });
 
-  const handleSubmit: SubmitHandler<OrderFormData> = (data) => {
+  function handleSubmit(data: OrderFormData) {
     onSubmit(data);
-  };
+  }
 
   return (
     <Form {...form}>
@@ -103,7 +103,7 @@ export function OrderForm({ initialData, onSubmit, isSubmitting }: OrderFormProp
                       <FormLabel>{t('client')}</FormLabel>
                       <Select 
                         value={field.value.toString()}
-                        onValueChange={(value) => field.onChange(parseInt(value))}
+                        onValueChange={(value) => field.onChange(parseInt(value, 10))}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -257,7 +257,11 @@ export function OrderForm({ initialData, onSubmit, isSubmitting }: OrderFormProp
                       <FormItem>
                         <FormLabel>{t('price')}</FormLabel>
                         <FormControl>
-                          <Input type="number" {...field} />
+                          <Input 
+                            type="number" 
+                            {...field}
+                            onChange={(e) => field.onChange(Number(e.target.value))}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -388,17 +392,20 @@ export function OrderForm({ initialData, onSubmit, isSubmitting }: OrderFormProp
           </Card>
         </div>
         
-        <div className="flex justify-end gap-4">
-          <Button type="button" variant="outline">
-            {t('cancel')}
-          </Button>
-          <Button type="submit" disabled={isSubmitting}>
+        <div className="flex justify-end">
+          <Button 
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full md:w-auto"
+          >
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 {t('saving')}
               </>
-            ) : initialData ? t('update') : t('create')}
+            ) : (
+              <>{t('save')}</>
+            )}
           </Button>
         </div>
       </form>
