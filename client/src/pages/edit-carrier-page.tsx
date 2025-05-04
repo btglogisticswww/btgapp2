@@ -7,6 +7,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/hooks/use-language";
 import { useLocation, useParams } from "wouter";
+import MainLayout from "@/components/layout/MainLayout";
 
 import {
   Form,
@@ -109,19 +110,23 @@ export default function EditCarrierPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <Loader2 className="w-8 h-8 animate-spin" />
-      </div>
+      <MainLayout title={t("edit_carrier")}>
+        <div className="flex items-center justify-center h-[calc(100vh-200px)]">
+          <Loader2 className="w-8 h-8 animate-spin" />
+        </div>
+      </MainLayout>
     );
   }
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardHeader>
-        <CardTitle>{t("edit_carrier")}</CardTitle>
-        <CardDescription>{t("edit_carrier_desc")}</CardDescription>
-      </CardHeader>
-      <CardContent>
+    <MainLayout title={t("edit_carrier")}>
+      <div className="p-6">
+        <Card className="w-full max-w-4xl mx-auto">
+          <CardHeader>
+            <CardTitle>{t("edit_carrier")}</CardTitle>
+            <CardDescription>{t("edit_carrier_desc")}</CardDescription>
+          </CardHeader>
+          <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -269,7 +274,9 @@ export default function EditCarrierPage() {
             </div>
           </form>
         </Form>
-      </CardContent>
-    </Card>
+          </CardContent>
+        </Card>
+      </div>
+    </MainLayout>
   );
 }

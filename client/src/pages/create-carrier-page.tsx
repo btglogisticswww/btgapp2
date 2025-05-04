@@ -6,6 +6,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/hooks/use-language";
 import { useLocation } from "wouter";
+import MainLayout from "@/components/layout/MainLayout";
 
 import {
   Form,
@@ -78,12 +79,14 @@ export default function CreateCarrierPage() {
   }
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardHeader>
-        <CardTitle>{t("add_new_carrier")}</CardTitle>
-        <CardDescription>{t("add_carrier_desc")}</CardDescription>
-      </CardHeader>
-      <CardContent>
+    <MainLayout title={t("add_new_carrier")}>
+      <div className="p-6">
+        <Card className="w-full max-w-4xl mx-auto">
+          <CardHeader>
+            <CardTitle>{t("add_new_carrier")}</CardTitle>
+            <CardDescription>{t("add_carrier_desc")}</CardDescription>
+          </CardHeader>
+          <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -231,7 +234,9 @@ export default function CreateCarrierPage() {
             </div>
           </form>
         </Form>
-      </CardContent>
-    </Card>
+          </CardContent>
+        </Card>
+      </div>
+    </MainLayout>
   );
 }
