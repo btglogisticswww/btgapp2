@@ -128,7 +128,7 @@ export default function OrdersPage() {
                       <TableHead>{t("status")}</TableHead>
                       <TableHead>{t("date")}</TableHead>
                       <TableHead>{t("price")}</TableHead>
-                      <TableHead className="sticky right-0 bg-card w-[100px] text-right rounded-tr-lg shadow-[-4px_0_10px_-4px_rgba(0,0,0,0.1)]">{t("actions")}</TableHead>
+                      <TableHead className="sticky right-0 bg-card w-[100px] text-right rounded-tr-lg border-l border-border/50">{t("actions")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -163,7 +163,7 @@ export default function OrdersPage() {
                             <TableCell className="font-medium">
                               {formatCurrency(order.price)}
                             </TableCell>
-                            <TableCell className="sticky right-0 bg-card group-hover:bg-sidebar-accent shadow-[-4px_0_10px_-4px_rgba(0,0,0,0.1)]">
+                            <TableCell className="sticky right-0 bg-card group-hover:bg-sidebar-accent border-l border-border/50">
                               <Link href={`/orders/${order.id}`} onClick={(e) => e.stopPropagation()}>
                                 <Button variant="ghost" size="icon" className="h-8 w-8">
                                   <ArrowRight className="h-4 w-4" />
