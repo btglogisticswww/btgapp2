@@ -30,7 +30,7 @@ type TransportationRequestFormProps = {
 const formSchema = z.object({
   orderId: z.number(),
   carrierId: z.number(),
-  vehicleId: z.number().optional(),
+  // vehicleId has been removed to avoid foreign key constraint issues
   price: z.coerce.number().positive('Price must be positive'),
   status: z.string(),
   deadline: z.date().optional(),
@@ -53,7 +53,7 @@ export default function TransportationRequestForm({
     defaultValues: {
       orderId,
       carrierId: 0,
-      vehicleId: undefined,
+      // vehicleId field has been removed from the form
       price: 0,
       status: 'pending',
       deadline: new Date(),
@@ -92,7 +92,7 @@ export default function TransportationRequestForm({
       form.reset({
         orderId: requestData.orderId || orderId,
         carrierId: requestData.carrierId,
-        vehicleId: requestData.vehicleId,
+        // vehicleId has been removed
         price: Number(requestData.price),
         status: requestData.status,
         deadline: requestData.deadline ? new Date(requestData.deadline) : undefined,
@@ -130,6 +130,7 @@ export default function TransportationRequestForm({
 
   // Submit form
   const onSubmit = (data: FormValues) => {
+    // vehicleId field has been completely removed from the form
     createMutation.mutate(data);
   };
 
@@ -176,36 +177,7 @@ export default function TransportationRequestForm({
               )}
             />
 
-            {/* Vehicle Selection */}
-            <FormField
-              control={form.control}
-              name="vehicleId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('selectVehicle')}</FormLabel>
-                  <Select
-                    disabled={isLoading}
-                    value={field.value ? field.value.toString() : undefined}
-                    onValueChange={(value) => field.onChange(parseInt(value))}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder={t('selectVehicle')} />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="0">{t('noVehicle')}</SelectItem>
-                      {carriers?.find(c => c.id === form.getValues().carrierId)?.vehicles?.map((vehicle) => (
-                        <SelectItem key={vehicle.id} value={vehicle.id.toString()}>
-                          {vehicle.type} - {vehicle.regNumber}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {/* Vehicle field has been removed to avoid foreign key constraint issues */}
 
             {/* Deadline Date */}
             <FormField
