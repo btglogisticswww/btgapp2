@@ -405,6 +405,15 @@ export default function OrderDetailPage() {
           </TabsContent>
 
           <TabsContent value="routes" className="mt-6">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-lg font-semibold">{t('routes')}</h3>
+              <Link href={`/orders/${order.id}/add-route`}>
+                <Button variant="ghost">
+                  <span className="mr-2">+</span>
+                  {t('addRoute')}
+                </Button>
+              </Link>
+            </div>
             {routes && routes.length > 0 ? (
               <div className="space-y-6">
                 {routes.map((route) => (
