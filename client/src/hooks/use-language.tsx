@@ -107,6 +107,10 @@ const translations: Record<Language, Record<string, string>> = {
     "pending_approval": "Ожидает подтверждения",
     "carrier": "Исполнитель",
     "requestStatus": "Статус заявки",
+    "transportation_request_created": "Заявка создана",
+    "transportation_request_created_desc": "Новая заявка на перевозку успешно создана",
+    "transportation_request_updated": "Заявка обновлена",
+    "transportation_request_updated_desc": "Заявка на перевозку успешно обновлена",
     
     // Orders page
     "ordersManagement": "Управление заказами",
