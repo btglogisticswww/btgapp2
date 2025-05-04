@@ -50,7 +50,7 @@ export default function Header({ title, toggleSidebar, toggleNotificationPanel }
             </button>
             
             {languageMenuOpen && (
-              <div className="absolute right-0 mt-2 w-40 bg-popover border border-border rounded-md shadow-lg py-1 z-10">
+              <div className="absolute right-0 mt-2 w-24 bg-popover border border-border rounded-md shadow-lg py-1 z-10">
                 <button 
                   className={`block px-4 py-2 text-sm w-full text-left ${language === "ru" ? "bg-accent text-accent-foreground" : "text-popover-foreground hover:bg-accent hover:text-accent-foreground"}`}
                   onClick={() => {
