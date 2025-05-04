@@ -105,6 +105,35 @@ export function generateOrderNumber(): string {
 }
 
 /**
+ * Get variant for Badge component based on status
+ * @param status The status string
+ * @returns A variant name for Badge component
+ */
+export function getStatusColor(status: string | null | undefined): "default" | "destructive" | "outline" | "secondary" | "success" | "warning" {
+  if (!status) return "default";
+  
+  switch (status.toLowerCase()) {
+    case 'active':
+    case 'in_transit':
+    case 'accepted':
+      return "success";
+    case 'pending':
+    case 'waiting':
+    case 'pending_approval':
+      return "warning";
+    case 'completed':
+      return "secondary";
+    case 'cancelled':
+    case 'rejected':
+      return "destructive";
+    case 'preparing':
+      return "outline";
+    default:
+      return "default";
+  }
+}
+
+/**
  * Extract initials from a name
  * @param name The full name
  * @returns The first letter of each word
