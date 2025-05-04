@@ -2,21 +2,20 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLanguage } from "@/hooks/use-language";
 import { useToast } from "@/hooks/use-toast";
+import { useLocation } from "wouter";
 import MainLayout from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { CarrierDialog } from "@/components/carriers/carrier-dialog";
 import { Plus, Search, RefreshCw, Edit, Mail, Phone, Truck } from "lucide-react";
 import { Carrier } from "@shared/schema";
 
 export default function CarriersPage() {
   const { t } = useLanguage();
   const { toast } = useToast();
+  const [, navigate] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedCarrier, setSelectedCarrier] = useState<Carrier | null>(null);
 
   const { data: carriers = [], isLoading, refetch } = useQuery<Carrier[]>({
     queryKey: ["/api/carriers"],
@@ -30,25 +29,14 @@ export default function CarriersPage() {
   );
 
   const handleAddNewCarrier = () => {
-    setSelectedCarrier(null);
-    setIsDialogOpen(true);
+    navigate("/carriers/create");
   };
 
   const handleEditCarrier = (carrier: Carrier) => {
-    setSelectedCarrier(carrier);
-    setIsDialogOpen(true);
+    navigate(`/carriers/${carrier.id}/edit`);
   };
 
-  const handleCloseDialog = (refreshNeeded: boolean = false) => {
-    setIsDialogOpen(false);
-    if (refreshNeeded) {
-      refetch();
-      toast({
-        title: selectedCarrier ? t("carrier_updated") : t("carrier_created"),
-        description: selectedCarrier ? t("carrier_updated_desc") : t("carrier_created_desc"),
-      });
-    }
-  };
+
 
   return (
     <MainLayout title={t("carriers")}>
@@ -164,11 +152,6 @@ export default function CarriersPage() {
         </Card>
       </div>
 
-      <CarrierDialog
-        open={isDialogOpen}
-        carrier={selectedCarrier}
-        onClose={handleCloseDialog}
-      />
     </MainLayout>
   );
 }

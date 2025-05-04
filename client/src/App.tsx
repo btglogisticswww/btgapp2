@@ -18,6 +18,8 @@ import ClientsPage from "@/pages/clients-page";
 import CreateClientPage from "@/pages/create-client-page";
 import EditClientPage from "@/pages/edit-client-page";
 import CarriersPage from "@/pages/carriers-page";
+import CreateCarrierPage from "@/pages/create-carrier-page";
+import EditCarrierPage from "@/pages/edit-carrier-page";
 
 function Router() {
   return (
@@ -34,6 +36,8 @@ function Router() {
       <ProtectedRoute path="/clients/create" component={CreateClientPage} />
       <ProtectedRoute path="/clients/:id/edit" component={EditClientPage} />
       <ProtectedRoute path="/carriers" component={CarriersPage} />
+      <ProtectedRoute path="/carriers/create" component={CreateCarrierPage} />
+      <ProtectedRoute path="/carriers/:id/edit" component={EditCarrierPage} />
       <Route component={NotFound} />
     </Switch>
   );
