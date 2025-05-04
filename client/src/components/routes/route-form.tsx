@@ -252,7 +252,7 @@ export default function RouteForm({ orderId, route, onCancel, onSuccess }: Route
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder={t("selectVehicle")} />
+                          <SelectValue placeholder={t("select_vehicle")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>

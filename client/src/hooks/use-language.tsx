@@ -636,6 +636,7 @@ const translations: Record<Language, Record<string, string>> = {
     "enter_end_point": "Endpunkt eingeben",
     "select_date": "Datum auswählen",
     "select_status": "Status auswählen",
+    "select_vehicle": "Fahrzeug auswählen",
     "enter_vehicle_id": "Fahrzeug-ID eingeben",
     "vehicleId": "Fahrzeug-ID",
     "add": "Hinzufügen",
