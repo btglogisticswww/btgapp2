@@ -2,10 +2,10 @@ import { db } from "@db";
 import * as schema from "@shared/schema";
 import { eq } from "drizzle-orm";
 import session from "express-session";
-import connectPg from "connect-pg-simple";
 import { pool } from "@db";
 
-const PostgresSessionStore = connectPg(session);
+// Using memory store for sessions
+const MemoryStore = session.MemoryStore;
 
 export interface IStorage {
   getUser(id: number): Promise<schema.User | undefined>;
@@ -83,11 +83,7 @@ export class DatabaseStorage implements IStorage {
   sessionStore: session.SessionStore;
 
   constructor() {
-    this.sessionStore = new PostgresSessionStore({ 
-      pool, 
-      createTableIfMissing: true,
-      tableName: "sessions" 
-    });
+    this.sessionStore = new MemoryStore();
   }
 
   // User methods
