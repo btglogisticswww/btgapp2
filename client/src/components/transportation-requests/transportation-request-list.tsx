@@ -53,7 +53,7 @@ export function TransportationRequestList({
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="flex flex-col gap-4">
       {requests.map((request) => (
         <TransportationRequestCard
           key={request.id}

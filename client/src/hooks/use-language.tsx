@@ -92,9 +92,12 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Transportation Requests
     "transportationRequests": "Транспортные заявки",
+    "transportationRequestDetails": "Детали транспортной заявки",
+    "createTransportationRequest": "Создать транспортную заявку",
     "addTransportationRequest": "Добавить транспортную заявку",
     "editTransportationRequest": "Редактировать транспортную заявку",
     "noTransportationRequests": "Для данного заказа нет транспортных заявок",
+    "Transportation request not found": "Транспортная заявка не найдена",
     "selectCarrier": "Выберите исполнителя",
     "transportationType": "Тип перевозки",
     "scheduledDate": "Запланированная дата",
@@ -366,9 +369,12 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Transportation Requests
     "transportationRequests": "Transport Requests",
+    "transportationRequestDetails": "Transport Request Details",
+    "createTransportationRequest": "Create Transport Request",
     "addTransportationRequest": "Add Transport Request",
     "editTransportationRequest": "Edit Transport Request",
     "noTransportationRequests": "No transport requests for this order",
+    "Transportation request not found": "Transport request not found",
     "manage_transportation_requests_desc": "Manage transportation requests and assignments",
     "add_transportation_request_desc": "Create a new transport request",
     "add_transportation_request_to_order": "Add transport request to order {{orderId}}",

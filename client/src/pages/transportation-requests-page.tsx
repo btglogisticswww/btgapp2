@@ -8,13 +8,7 @@ import { TransportationRequest } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function TransportationRequestsPage() {
   const { t } = useLanguage();
@@ -53,34 +47,27 @@ export default function TransportationRequestsPage() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-4 mb-6">
-          <div className="relative flex-1">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder={t("search")}
-              className="pl-8"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <Select
-            value={statusFilter}
-            onValueChange={setStatusFilter}
-          >
-            <SelectTrigger className="w-full md:w-[180px]">
-              <SelectValue placeholder={t("filter_by_status")} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">{t("all_statuses")}</SelectItem>
-              <SelectItem value="pending">{t("pending")}</SelectItem>
-              <SelectItem value="accepted">{t("accepted")}</SelectItem>
-              <SelectItem value="rejected">{t("rejected")}</SelectItem>
-              <SelectItem value="completed">{t("completed")}</SelectItem>
-              <SelectItem value="cancelled">{t("cancelled")}</SelectItem>
-            </SelectContent>
-          </Select>
+        <div className="relative mb-4">
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="search"
+            placeholder={t("search")}
+            className="pl-8 w-full md:w-[300px]"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
+        
+        <Tabs value={statusFilter} onValueChange={setStatusFilter} className="mb-6">
+          <TabsList className="mb-2">
+            <TabsTrigger value="all">{t("all")}</TabsTrigger>
+            <TabsTrigger value="pending">{t("pending")}</TabsTrigger>
+            <TabsTrigger value="accepted">{t("accepted")}</TabsTrigger>
+            <TabsTrigger value="rejected">{t("rejected")}</TabsTrigger>
+            <TabsTrigger value="completed">{t("completed")}</TabsTrigger>
+            <TabsTrigger value="cancelled">{t("cancelled")}</TabsTrigger>
+          </TabsList>
+        </Tabs>
 
         {isLoading ? (
           <div className="flex justify-center items-center h-64">

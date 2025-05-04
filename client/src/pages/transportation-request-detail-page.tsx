@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getStatusColor } from "@/lib/utils";
 import { formatDate, formatPrice } from "@/lib/formatters";
 import { ArrowLeft, Calendar, FileEdit, FileText, TruckIcon, MapPin, DollarSign, MessageCircle } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function TransportationRequestDetailPage() {
   const { t } = useLanguage();
@@ -115,82 +116,119 @@ export default function TransportationRequestDetailPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>{t("generalInfo")}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center">
-                <TruckIcon className="h-4 w-4 mr-2 text-muted-foreground" />
-                <span className="text-muted-foreground mr-1">{t("carrier")}:</span>
-                <span>{carrier?.name || t("unknown")}</span>
-              </div>
-              <div className="flex items-center">
-                <FileText className="h-4 w-4 mr-2 text-muted-foreground" />
-                <span className="text-muted-foreground mr-1">{t("orderLabel")}:</span>
-                <Link href={`/orders/${request.orderId}`} className="text-primary hover:underline">
-                  #{request.orderId} - {order?.orderNumber || ""}
-                </Link>
-              </div>
-              <div className="flex items-center">
-                <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
-                <span className="text-muted-foreground mr-1">{t("deadline")}:</span>
-                <span>{formatDate(request.deadline)}</span>
-              </div>
-              <div className="flex items-center">
-                <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
-                <span className="text-muted-foreground mr-1">{t("price")}:</span>
-                <span>{formatPrice(request.price)}</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>{t("orderDetails")}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {order ? (
-                <>
-                  <div className="flex items-center">
-                    <FileText className="h-4 w-4 mr-2 text-muted-foreground" />
-                    <span className="text-muted-foreground mr-1">{t("orderNumber")}:</span>
-                    <span>{order.orderNumber}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
-                    <span className="text-muted-foreground mr-1">{t("origin")}:</span>
-                    <span>{order.originAddress}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
-                    <span className="text-muted-foreground mr-1">{t("destination")}:</span>
-                    <span>{order.destinationAddress}</span>
-                  </div>
-                </>
-              ) : (
-                <div className="text-muted-foreground text-center py-4">
-                  {t("orderNotFound")}
+        <Tabs defaultValue="general" className="w-full">
+          <TabsList className="mb-4">
+            <TabsTrigger value="general">{t("generalInfo")}</TabsTrigger>
+            <TabsTrigger value="order">{t("orderDetails")}</TabsTrigger>
+            {request.notes && <TabsTrigger value="notes">{t("notes")}</TabsTrigger>}
+          </TabsList>
+          
+          <TabsContent value="general" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>{t("generalInfo")}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center">
+                  <TruckIcon className="h-4 w-4 mr-2 text-muted-foreground" />
+                  <span className="text-muted-foreground mr-1">{t("carrier")}:</span>
+                  <span>{carrier?.name || t("unknown")}</span>
                 </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
-
-        {request.notes && (
-          <Card className="mt-6">
-            <CardHeader>
-              <CardTitle>{t("notes")}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-start">
-                <MessageCircle className="h-4 w-4 mr-2 text-muted-foreground mt-1" />
-                <p className="whitespace-pre-wrap">{request.notes}</p>
+                <div className="flex items-center">
+                  <FileText className="h-4 w-4 mr-2 text-muted-foreground" />
+                  <span className="text-muted-foreground mr-1">{t("orderLabel")}:</span>
+                  <Link href={`/orders/${request.orderId}`} className="text-primary hover:underline">
+                    #{request.orderId} - {order?.orderNumber || ""}
+                  </Link>
+                </div>
+                <div className="flex items-center">
+                  <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
+                  <span className="text-muted-foreground mr-1">{t("deadline")}:</span>
+                  <span>{formatDate(request.deadline)}</span>
+                </div>
+                <div className="flex items-center">
+                  <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
+                  <span className="text-muted-foreground mr-1">{t("price")}:</span>
+                  <span>{formatPrice(request.price)}</span>
+                </div>
+              </CardContent>
+            </Card>
+            
+            {request.createdAt && (
+              <div className="flex items-center justify-between text-sm text-muted-foreground mt-2">
+                <div>{t("createDate")}: {formatDate(request.createdAt)}</div>
+                {request.updatedAt && (
+                  <div>{t("updateDate")}: {formatDate(request.updatedAt)}</div>
+                )}
               </div>
-            </CardContent>
-          </Card>
-        )}
+            )}
+          </TabsContent>
+          
+          <TabsContent value="order" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>{t("orderDetails")}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {order ? (
+                  <>
+                    <div className="flex items-center">
+                      <FileText className="h-4 w-4 mr-2 text-muted-foreground" />
+                      <span className="text-muted-foreground mr-1">{t("orderNumber")}:</span>
+                      <span>{order.orderNumber}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
+                      <span className="text-muted-foreground mr-1">{t("origin")}:</span>
+                      <span>{order.originAddress}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
+                      <span className="text-muted-foreground mr-1">{t("destination")}:</span>
+                      <span>{order.destinationAddress}</span>
+                    </div>
+                    {order.status && (
+                      <div className="flex items-center">
+                        <FileText className="h-4 w-4 mr-2 text-muted-foreground" />
+                        <span className="text-muted-foreground mr-1">{t("status")}:</span>
+                        <Badge variant="outline" className={`${getStatusColor(order.status)}`}>
+                          {t(order.status)}
+                        </Badge>
+                      </div>
+                    )}
+                    {order.type && (
+                      <div className="flex items-center">
+                        <FileText className="h-4 w-4 mr-2 text-muted-foreground" />
+                        <span className="text-muted-foreground mr-1">{t("type")}:</span>
+                        <span>{order.type}</span>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="text-muted-foreground text-center py-4">
+                    {t("orderNotFound")}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          {request.notes && (
+            <TabsContent value="notes" className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{t("notes")}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-start">
+                    <MessageCircle className="h-4 w-4 mr-2 text-muted-foreground mt-1" />
+                    <p className="whitespace-pre-wrap">{request.notes}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          )}
+        </Tabs>
       </div>
     </MainLayout>
   );
