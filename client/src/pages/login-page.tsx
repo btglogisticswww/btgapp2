@@ -98,7 +98,7 @@ export default function LoginPage() {
       
       <div className="relative flex flex-col items-center justify-center w-full max-w-md mx-auto px-4 sm:px-6 py-8 z-10 min-h-screen">
         {/* Logo with burgundy background */}
-        <div className="w-full bg-primary py-3 px-5">
+        <div className="w-full bg-primary py-3 px-5 rounded-t-lg">
           <div className="flex items-center">
             <div className="flex items-center">
               <span className="text-3xl font-bold text-white">БТГ</span>
