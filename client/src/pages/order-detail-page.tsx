@@ -86,7 +86,7 @@ export default function OrderDetailPage() {
   });
 
   // Fetch routes for this order
-  const { data: routes, isLoading: routesLoading } = useQuery<Route[]>({
+  const { data: routes, isLoading: routesLoading } = useQuery<RouteType[]>({
     queryKey: ["/api/orders", orderId, "routes"],
     queryFn: async () => {
       const response = await fetch(`/api/orders/${orderId}/routes`);
@@ -413,105 +413,52 @@ export default function OrderDetailPage() {
           <TabsContent value="routes" className="mt-6">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-lg font-semibold">{t('routes')}</h3>
-              <Link href={`/orders/${order.id}/add-route`}>
-                <Button variant="ghost">
-                  <span className="mr-2">+</span>
-                  {t('addRoute')}
-                </Button>
-              </Link>
+              <Button variant="ghost" onClick={() => setAddingRoute(true)} disabled={addingRoute || editingRouteId !== null}>
+                <span className="mr-2">+</span>
+                {t('addRoute')}
+              </Button>
             </div>
+
+            {addingRoute && (
+              <div className="mb-6">
+                <RouteForm 
+                  orderId={order.id} 
+                  onCancel={() => setAddingRoute(false)} 
+                  onSuccess={() => setAddingRoute(false)} 
+                />
+              </div>
+            )}
+
             {routes && routes.length > 0 ? (
               <div className="space-y-6">
                 {routes.map((route) => (
-                  <Card key={route.id}>
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-lg">{route.startPoint} → {route.endPoint}</CardTitle>
-                        <Badge variant="secondary" className={`${getStatusColors(route.status).bg} ${getStatusColors(route.status).text} border-0`}>
-                          {t(route.status)}
-                        </Badge>
-                      </div>
-                      <CardDescription>
-                        {t('id')}: {route.id}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-3">
-                          <div className="flex items-center">
-                            <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
-                            <span className="text-muted-foreground mr-1">{t('startPoint')}:</span>
-                            <span>{route.startPoint}</span>
-                          </div>
-                          <div className="flex items-center">
-                            <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
-                            <span className="text-muted-foreground mr-1">{t('endPoint')}:</span>
-                            <span>{route.endPoint}</span>
-                          </div>
-                          {route.startDate && (
-                            <div className="flex items-center">
-                              <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
-                              <span className="text-muted-foreground mr-1">{t('startDate')}:</span>
-                              <span>{formatDate(route.startDate)}</span>
-                            </div>
-                          )}
-                          {route.endDate && (
-                            <div className="flex items-center">
-                              <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
-                              <span className="text-muted-foreground mr-1">{t('endDate')}:</span>
-                              <span>{formatDate(route.endDate)}</span>
-                            </div>
-                          )}
-                        </div>
-                        <div className="space-y-3">
-                          <div className="flex items-center">
-                            <Truck className="h-4 w-4 mr-2 text-muted-foreground" />
-                            <span className="text-muted-foreground mr-1">{t('vehicle')}:</span>
-                            <span>{route.vehicleId || '-'}</span>
-                          </div>
-                          {typeof route.progress === 'number' && (
-                            <div>
-                              <div className="flex items-center mb-1">
-                                <Info className="h-4 w-4 mr-2 text-muted-foreground" />
-                                <span className="text-muted-foreground mr-1">{t('progress')}:</span>
-                                <span>{route.progress}%</span>
-                              </div>
-                              <div className="w-full bg-secondary rounded-full h-2">
-                                <div 
-                                  className="bg-primary h-2 rounded-full" 
-                                  style={{ width: `${route.progress}%` }}
-                                />
-                              </div>
-                            </div>
-                          )}
-                          {route.notes && (
-                            <div className="flex items-start pt-2">
-                              <MessageCircle className="h-4 w-4 mr-2 text-muted-foreground mt-0.5" />
-                              <div>
-                                <span className="text-muted-foreground block">{t('notes')}:</span>
-                                <p className="text-sm mt-1">{route.notes}</p>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </CardContent>
-                    <CardFooter className="flex justify-end">
-                      <Link href={`/routes/${route.id}`}>
-                        <Button variant="ghost">
-                          {t('viewRouteDetails')}
-                        </Button>
-                      </Link>
-                    </CardFooter>
-                  </Card>
+                  editingRouteId === route.id ? (
+                    <div key={route.id}>
+                      <RouteForm 
+                        orderId={order.id} 
+                        route={route}
+                        onCancel={() => setEditingRouteId(null)} 
+                        onSuccess={() => setEditingRouteId(null)} 
+                      />
+                    </div>
+                  ) : (
+                    <RouteCard 
+                      key={route.id} 
+                      route={route} 
+                      onEdit={setEditingRouteId} 
+                      disabled={addingRoute || editingRouteId !== null}
+                    />
+                  )
                 ))}
               </div>
             ) : (
-              <Card>
-                <CardContent className="p-6 text-center">
-                  <p>{t('No routes available for this order')}</p>
-                </CardContent>
-              </Card>
+              !addingRoute && (
+                <Card>
+                  <CardContent className="p-6 text-center">
+                    <p>{t('noRoutesAvailable')}</p>
+                  </CardContent>
+                </Card>
+              )
             )}
           </TabsContent>
 
