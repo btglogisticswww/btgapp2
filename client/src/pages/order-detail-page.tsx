@@ -4,7 +4,7 @@ import { useRoute } from "wouter";
 import { useLanguage } from "@/hooks/use-language";
 import MainLayout from "@/components/layout/MainLayout";
 import { useQuery } from "@tanstack/react-query";
-import { Order, Client, Route as RouteType, Carrier, Vehicle } from "@shared/schema";
+import { Order, Client, Route, Carrier, Vehicle } from "@shared/schema";
 import { formatCurrency, formatDate, getStatusColors } from "@/lib/utils";
 import RouteForm from "@/components/routes/route-form";
 import RouteCard from "@/components/routes/route-card";
@@ -19,7 +19,6 @@ import {
   User,
   Info,
   FileText,
-  MapIcon,
   Phone,
   Mail,
   MessageCircle,
@@ -27,14 +26,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import {
   Card,
   CardContent,
@@ -44,8 +35,6 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Link } from "wouter";
 
@@ -86,7 +75,7 @@ export default function OrderDetailPage() {
   });
 
   // Fetch routes for this order
-  const { data: routes, isLoading: routesLoading } = useQuery<RouteType[]>({
+  const { data: routes, isLoading: routesLoading } = useQuery<Route[]>({
     queryKey: ["/api/orders", orderId, "routes"],
     queryFn: async () => {
       const response = await fetch(`/api/orders/${orderId}/routes`);
@@ -374,23 +363,29 @@ export default function OrderDetailPage() {
                             <span>{client.email}</span>
                           </div>
                         )}
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold mb-4">{t('additional')}</h3>
+                      <div className="space-y-3">
                         {client.address && (
+                          <div className="flex items-center">
+                            <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
+                            <span className="text-muted-foreground mr-1">{t('address')}:</span>
+                            <span>{client.address}</span>
+                          </div>
+                        )}
+                        {client.notes && (
                           <div className="flex items-start">
-                            <MapPin className="h-4 w-4 mr-2 text-muted-foreground mt-0.5" />
+                            <MessageCircle className="h-4 w-4 mr-2 text-muted-foreground mt-0.5" />
                             <div>
-                              <span className="text-muted-foreground block">{t('address')}:</span>
-                              <p className="text-sm mt-1">{client.address}</p>
+                              <span className="text-muted-foreground block">{t('notes')}:</span>
+                              <p className="text-sm mt-1">{client.notes}</p>
                             </div>
                           </div>
                         )}
                       </div>
                     </div>
-                    {client.notes && (
-                      <div>
-                        <h3 className="text-lg font-semibold mb-4">{t('notes')}</h3>
-                        <p>{client.notes}</p>
-                      </div>
-                    )}
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-end">
