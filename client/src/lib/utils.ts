@@ -57,16 +57,19 @@ export function getStatusColors(status: string | null | undefined): { bg: string
     case 'active':
     case 'в пути':
     case 'in_transit':
+    case 'accepted':
       return { bg: 'bg-green-100', text: 'text-green-800' };
     case 'pending':
     case 'ожидание':
     case 'waiting':
+    case 'pending_approval':
       return { bg: 'bg-yellow-100', text: 'text-yellow-800' };
     case 'completed':
     case 'завершен':
       return { bg: 'bg-blue-100', text: 'text-blue-800' };
     case 'cancelled':
     case 'отменен':
+    case 'rejected':
       return { bg: 'bg-red-100', text: 'text-red-800' };
     case 'preparing':
     case 'подготовка':

@@ -579,6 +579,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post(`${apiPrefix}/orders/:orderId/transportation-requests`, async (req, res) => {
+    try {
+      const { orderId } = req.params;
+      const data = { ...req.body, orderId: parseInt(orderId) };
+      const request = await storage.createTransportationRequest(data);
+      res.status(201).json(request);
+    } catch (error) {
+      console.error(`Error creating transportation request for order ${req.params.orderId}:`, error);
+      res.status(500).json({ message: "Failed to create transportation request for order" });
+    }
+  });
+
   app.put(`${apiPrefix}/transportation-requests/:id`, async (req, res) => {
     try {
       const { id } = req.params;
