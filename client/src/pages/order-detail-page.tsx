@@ -226,10 +226,10 @@ export default function OrderDetailPage() {
           <TabsList className="w-full justify-start border-b border-border">
             <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="general">{t('generalInfo')}</TabsTrigger>
             <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="cargo">{t('cargoInfo')}</TabsTrigger>
-            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="financial">{t('financialInfo')}</TabsTrigger>
-            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="client">{t('client')}</TabsTrigger>
-            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="routes">{t('routes')}</TabsTrigger>
-            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="carriers">{t('carriers')}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="financial">{t('finances')}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="client">{t('clientInfo')}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="routes">{t('routeInfo')}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" value="carriers">{t('carrierInfo')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="general" className="mt-6">
@@ -253,12 +253,12 @@ export default function OrderDetailPage() {
                   </div>
                   <div className="flex items-center">
                     <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
-                    <span className="text-muted-foreground mr-1">{t('orderDate')}:</span>
+                    <span className="text-muted-foreground mr-1">{t('date')}:</span>
                     <span>{formatDate(order.orderDate)}</span>
                   </div>
                   <div className="flex items-center">
                     <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
-                    <span className="text-muted-foreground mr-1">{t('deliveryDate')}:</span>
+                    <span className="text-muted-foreground mr-1">{t('endDate')}:</span>
                     <span>{order.deliveryDate ? formatDate(order.deliveryDate) : '-'}</span>
                   </div>
                   <div className="flex items-center">
