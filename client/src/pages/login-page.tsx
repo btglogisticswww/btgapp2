@@ -86,7 +86,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative flex h-screen w-full bg-gray-50 overflow-hidden" style={{ fontFamily }}>
+    <div className="relative flex min-h-screen w-full bg-gray-50 overflow-hidden" style={{ fontFamily }}>
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
         <img 
@@ -96,9 +96,9 @@ export default function LoginPage() {
         />
       </div>
       
-      <div className="relative flex flex-col items-center justify-center w-full max-w-md mx-auto px-4 sm:px-6 py-6 z-10">
+      <div className="relative flex flex-col items-center justify-center w-full max-w-md mx-auto px-4 sm:px-6 py-4 z-10 min-h-screen">
         {/* Logo with burgundy background */}
-        <div className="mb-8 w-full bg-primary py-4 px-5 rounded-t-lg shadow-md border-b border-primary/70">
+        <div className="w-full bg-primary py-3 px-5 rounded-t-lg shadow-md border-b border-primary/70">
           <div className="flex items-center">
             <div className="flex items-center">
               <span className="text-3xl font-bold text-white">БТГ</span>
