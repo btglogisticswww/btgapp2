@@ -215,10 +215,12 @@ export default function OrderDetailPage() {
             </Badge>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost">
-              <FileEdit className="mr-2 h-4 w-4" />
-              {t('edit')}
-            </Button>
+            <Link href={`/orders/${order.id}/edit`}>
+              <Button variant="ghost">
+                <FileEdit className="mr-2 h-4 w-4" />
+                {t('edit')}
+              </Button>
+            </Link>
           </div>
         </div>
 

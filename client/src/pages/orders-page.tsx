@@ -97,10 +97,12 @@ export default function OrdersPage() {
             {t("filters")}
           </Button>
 
-          <Button className="flex items-center gap-2 w-full sm:w-auto">
-            <Plus className="h-4 w-4" />
-            {t("newOrder")}
-          </Button>
+          <Link href="/orders/create">
+            <Button className="flex items-center gap-2 w-full sm:w-auto">
+              <Plus className="h-4 w-4" />
+              {t("newOrder")}
+            </Button>
+          </Link>
         </div>
       </div>
 
