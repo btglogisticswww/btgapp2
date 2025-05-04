@@ -31,11 +31,12 @@ const formSchema = z.object({
   orderId: z.number(),
   carrierId: z.number(),
   carrierName: z.string().optional(),
-  transportationType: z.string().min(3, 'Minimium 3 characters'),
-  offeredPrice: z.coerce.number().positive('Price must be positive'),
-  scheduledDate: z.date(),
+  requestNumber: z.string().min(3, 'Minimum 3 characters'),
+  description: z.string().min(3, 'Minimum 3 characters'),
+  price: z.coerce.number().positive('Price must be positive'),
   status: z.string(),
-  specialRequirements: z.string().optional(),
+  requestDate: z.date(),
+  notes: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -55,11 +56,12 @@ export default function TransportationRequestForm({
     defaultValues: {
       orderId,
       carrierId: 0,
-      transportationType: '',
-      offeredPrice: 0,
-      scheduledDate: new Date(),
+      requestNumber: '',
+      description: '',
+      price: 0,
+      requestDate: new Date(),
       status: 'pending_approval',
-      specialRequirements: '',
+      notes: '',
     },
   });
 
@@ -96,11 +98,12 @@ export default function TransportationRequestForm({
         orderId: requestData.orderId || orderId,
         carrierId: requestData.carrierId,
         carrierName: requestData.carrierName,
-        transportationType: requestData.transportationType,
-        offeredPrice: Number(requestData.offeredPrice),
-        scheduledDate: new Date(requestData.scheduledDate),
+        requestNumber: requestData.requestNumber,
+        description: requestData.description || '',
+        price: Number(requestData.price),
+        requestDate: new Date(requestData.requestDate),
         status: requestData.status,
-        specialRequirements: requestData.specialRequirements || '',
+        notes: requestData.notes || '',
       });
     }
   }, [requestData, form, orderId]);
@@ -189,13 +192,13 @@ export default function TransportationRequestForm({
               )}
             />
 
-            {/* Transportation Type */}
+            {/* Request Number */}
             <FormField
               control={form.control}
-              name="transportationType"
+              name="requestNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('transportationType')}</FormLabel>
+                  <FormLabel>{t('requestNumber')}</FormLabel>
                   <FormControl>
                     <Input disabled={isLoading} {...field} />
                   </FormControl>
@@ -204,13 +207,13 @@ export default function TransportationRequestForm({
               )}
             />
 
-            {/* Scheduled Date */}
+            {/* Request Date */}
             <FormField
               control={form.control}
-              name="scheduledDate"
+              name="requestDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>{t('scheduledDate')}</FormLabel>
+                  <FormLabel>{t('requestDate')}</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
@@ -245,13 +248,13 @@ export default function TransportationRequestForm({
               )}
             />
 
-            {/* Offered Price */}
+            {/* Price */}
             <FormField
               control={form.control}
-              name="offeredPrice"
+              name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('offeredPrice')}</FormLabel>
+                  <FormLabel>{t('price')}</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -271,7 +274,7 @@ export default function TransportationRequestForm({
               name="status"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('requestStatus')}</FormLabel>
+                  <FormLabel>{t('status')}</FormLabel>
                   <Select
                     disabled={isLoading}
                     value={field.value}
@@ -293,13 +296,13 @@ export default function TransportationRequestForm({
               )}
             />
 
-            {/* Special Requirements */}
+            {/* Description */}
             <FormField
               control={form.control}
-              name="specialRequirements"
+              name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('specialRequirements')}</FormLabel>
+                  <FormLabel>{t('description')}</FormLabel>
                   <FormControl>
                     <Textarea disabled={isLoading} {...field} />
                   </FormControl>
