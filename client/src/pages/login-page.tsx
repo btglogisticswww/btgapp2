@@ -122,9 +122,9 @@ export default function LoginPage() {
           value={activeTab} 
           onValueChange={setActiveTab}
         >
-          <TabsList className="w-full justify-start border-b border-border">
-            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground px-8" value="login">{t("login")}</TabsTrigger>
-            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground px-8" value="register">{t("register")}</TabsTrigger>
+          <TabsList className="w-full grid grid-cols-2 border-b border-border">
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground text-center py-2" value="login">{t("login")}</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground text-center py-2" value="register">{t("register")}</TabsTrigger>
           </TabsList>
           
           {/* Login Form */}
