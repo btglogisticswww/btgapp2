@@ -554,6 +554,10 @@ export default function OrderDetailPage() {
               </Card>
             )}
           </TabsContent>
+
+          <TabsContent value="transportation" className="mt-6">
+            <TransportationRequestList orderId={order.id} />
+          </TabsContent>
         </Tabs>
       </div>
     </MainLayout>

@@ -90,6 +90,24 @@ const translations: Record<Language, Record<string, string>> = {
     "noCarriersAssigned": "К данному заказу не привязаны исполнители",
     "contactPerson": "Контактное лицо",
     
+    // Transportation Requests
+    "transportationRequests": "Заявки на перевозку",
+    "addTransportationRequest": "Добавить заявку",
+    "editTransportationRequest": "Редактировать заявку",
+    "noTransportationRequests": "Для данного заказа нет заявок на перевозку",
+    "selectCarrier": "Выберите исполнителя",
+    "transportationType": "Тип перевозки",
+    "scheduledDate": "Запланированная дата",
+    "requestDetails": "Детали заявки",
+    "specialRequirements": "Особые требования",
+    "priceOffer": "Предложенная цена",
+    "offeredPrice": "Предложенная цена",
+    "accepted": "Принято",
+    "rejected": "Отклонено",
+    "pending_approval": "Ожидает подтверждения",
+    "carrier": "Исполнитель",
+    "requestStatus": "Статус заявки",
+    
     // Orders page
     "ordersManagement": "Управление заказами",
     "search": "Поиск",
@@ -342,6 +360,24 @@ const translations: Record<Language, Record<string, string>> = {
     "noCarriersAssigned": "No carriers assigned to this order",
     "contactPerson": "Contact Person",
     
+    // Transportation Requests
+    "transportationRequests": "Transportation Requests",
+    "addTransportationRequest": "Add Request",
+    "editTransportationRequest": "Edit Request",
+    "noTransportationRequests": "No transportation requests for this order",
+    "selectCarrier": "Select Carrier",
+    "transportationType": "Transportation Type",
+    "scheduledDate": "Scheduled Date",
+    "requestDetails": "Request Details",
+    "specialRequirements": "Special Requirements",
+    "priceOffer": "Price Offer",
+    "offeredPrice": "Offered Price",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "pending_approval": "Pending Approval",
+    "carrier": "Carrier",
+    "requestStatus": "Request Status",
+    
     // Orders page
     "ordersManagement": "Orders Management",
     "search": "Search",
@@ -593,6 +629,24 @@ const translations: Record<Language, Record<string, string>> = {
     "noRoutesAvailable": "Keine Routen für diesen Auftrag verfügbar",
     "noCarriersAssigned": "Keine Spediteure diesem Auftrag zugewiesen",
     "contactPerson": "Kontaktperson",
+    
+    // Transportation Requests
+    "transportationRequests": "Transportanfragen",
+    "addTransportationRequest": "Anfrage hinzufügen",
+    "editTransportationRequest": "Anfrage bearbeiten",
+    "noTransportationRequests": "Keine Transportanfragen für diesen Auftrag",
+    "selectCarrier": "Spediteur auswählen",
+    "transportationType": "Transportart",
+    "scheduledDate": "Geplantes Datum",
+    "requestDetails": "Anfrage-Details",
+    "specialRequirements": "Besondere Anforderungen",
+    "priceOffer": "Preisangebot",
+    "offeredPrice": "Angebotspreis",
+    "accepted": "Angenommen",
+    "rejected": "Abgelehnt",
+    "pending_approval": "Ausstehende Genehmigung",
+    "carrier": "Spediteur",
+    "requestStatus": "Anfragestatus",
     
     // Orders page
     "ordersManagement": "Auftragsverwaltung",
