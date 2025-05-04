@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
-import { useRoute } from "wouter";
+import { useRoute, useLocation } from "wouter";
 import { useLanguage } from "@/hooks/use-language";
 import MainLayout from "@/components/layout/MainLayout";
 import { useQuery } from "@tanstack/react-query";
@@ -40,11 +40,14 @@ import { Link } from "wouter";
 
 export default function OrderDetailPage() {
   const { t } = useLanguage();
-  const [location, params] = useRoute('/orders/:id');
+  const [matched, params] = useRoute('/orders/:id');
   const orderId = params?.id ? parseInt(params.id) : 0;
   
+  // Get current location
+  const [path, setLocation] = useLocation();
+  
   // Get tab from URL query parameter
-  const queryParams = new URLSearchParams(typeof location === 'string' ? location.split('?')[1] || '' : '');
+  const queryParams = new URLSearchParams(path.includes('?') ? path.split('?')[1] : '');
   const tabFromUrl = queryParams.get('tab');
   
   // State for route forms and active tab
@@ -110,6 +113,9 @@ export default function OrderDetailPage() {
   // Fetch all carriers for the order's routes
   const [carriers, setCarriers] = useState<Carrier[]>([]);
   const [carriersLoading, setCarriersLoading] = useState(false);
+  
+  // Define isLoading here before using it in useEffect
+  const isLoading = orderLoading || clientLoading || routesLoading || carrierLoading || carriersLoading;
 
   useEffect(() => {
     const fetchCarriersForVehicles = async () => {
@@ -162,8 +168,15 @@ export default function OrderDetailPage() {
       setCarriers(prev => [...prev, carrier]);
     }
   }, [carrier, carriers]);
-
-  const isLoading = orderLoading || clientLoading || routesLoading || carrierLoading || carriersLoading;
+  
+  // Update URL when tab changes
+  useEffect(() => {
+    // Only update URL if activeTab is set and the page is loaded
+    if (activeTab && !isLoading && order) {
+      const baseUrl = `/orders/${orderId}`;
+      setLocation(`${baseUrl}?tab=${activeTab}`);
+    }
+  }, [activeTab, isLoading, order, orderId, setLocation]);
 
   if (isLoading) {
     return (
