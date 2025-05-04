@@ -128,7 +128,7 @@ export default function OrdersPage() {
                       <TableHead>{t("status")}</TableHead>
                       <TableHead>{t("date")}</TableHead>
                       <TableHead>{t("price")}</TableHead>
-                      <TableHead className="sticky right-0 bg-background w-[100px] text-right">{t("actions")}</TableHead>
+                      <TableHead className="sticky right-0 bg-background w-[100px] text-right rounded-tr-lg">{t("actions")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -140,7 +140,7 @@ export default function OrdersPage() {
                         return (
                           <TableRow 
                             key={order.id} 
-                            className={`cursor-pointer ${isSelected ? 'bg-sidebar-accent data-[state=selected]' : ''}`}
+                            className={`group cursor-pointer ${isSelected ? 'bg-sidebar-accent data-[state=selected]' : ''}`}
                             data-state={isSelected ? 'selected' : undefined}
                             onClick={() => handleOrderSelect(order)}
                           >
@@ -163,7 +163,7 @@ export default function OrdersPage() {
                             <TableCell className="font-medium">
                               {formatCurrency(order.price)}
                             </TableCell>
-                            <TableCell className="sticky right-0 bg-background">
+                            <TableCell className="sticky right-0 bg-background group-hover:bg-sidebar-accent">
                               <Link href={`/orders/${order.id}`} onClick={(e) => e.stopPropagation()}>
                                 <Button variant="ghost" size="icon" className="h-8 w-8">
                                   <ArrowRight className="h-4 w-4" />
