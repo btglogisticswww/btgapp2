@@ -49,33 +49,23 @@ export default function TransportationRequestCard({
         <div className="space-y-2 text-sm">
           <div className="flex items-center">
             <Truck className="mr-2 h-4 w-4 text-muted-foreground" />
-            <span className="text-muted-foreground mr-1">{t('transportationType')}:</span>
-            <span>{request.transportationType}</span>
+            <span className="text-muted-foreground mr-1">{t('vehicle')}:</span>
+            <span>{request.vehicleId ? `ID: ${request.vehicleId}` : t('no_vehicle')}</span>
           </div>
 
           <div className="flex items-center">
             <DollarSign className="mr-2 h-4 w-4 text-muted-foreground" />
-            <span className="text-muted-foreground mr-1">{t('offeredPrice')}:</span>
-            <span>{formatCurrency(Number(request.offeredPrice))}</span>
+            <span className="text-muted-foreground mr-1">{t('price')}:</span>
+            <span>{request.price ? formatCurrency(Number(request.price)) : t('no_price')}</span>
           </div>
 
-          {request.carrierName && (
-            <div className="flex items-center">
-              <Building className="mr-2 h-4 w-4 text-muted-foreground" />
-              <span className="text-muted-foreground mr-1">{t('carrier')}:</span>
-              <span>{request.carrierName}</span>
-            </div>
-          )}
+          <div className="flex items-center">
+            <Building className="mr-2 h-4 w-4 text-muted-foreground" />
+            <span className="text-muted-foreground mr-1">{t('carrier')}:</span>
+            <span>{t('carrier_id')}: {request.carrierId}</span>
+          </div>
 
-          {request.specialRequirements && (
-            <div className="flex items-start">
-              <FileText className="mr-2 h-4 w-4 text-muted-foreground mt-0.5" />
-              <div>
-                <span className="text-muted-foreground">{t('specialRequirements')}:</span>
-                <p>{request.specialRequirements}</p>
-              </div>
-            </div>
-          )}
+
         </div>
       </CardContent>
 

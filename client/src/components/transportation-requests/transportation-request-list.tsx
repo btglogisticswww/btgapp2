@@ -35,9 +35,11 @@ export default function TransportationRequestList({ orderId }: TransportationReq
   // Filter requests by status
   const filteredRequests = requests?.filter(request => {
     if (activeTab === 'all') return true;
-    if (activeTab === 'pending') return request.status === 'pending_approval';
+    if (activeTab === 'pending') return request.status === 'pending';
     if (activeTab === 'accepted') return request.status === 'accepted';
     if (activeTab === 'rejected') return request.status === 'rejected';
+    if (activeTab === 'completed') return request.status === 'completed';
+    if (activeTab === 'cancelled') return request.status === 'cancelled';
     return true;
   });
 
@@ -111,6 +113,18 @@ export default function TransportationRequestList({ orderId }: TransportationReq
                   value="rejected"
                 >
                   {t('rejected')}
+                </TabsTrigger>
+                <TabsTrigger 
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" 
+                  value="completed"
+                >
+                  {t('completed')}
+                </TabsTrigger>
+                <TabsTrigger 
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" 
+                  value="cancelled"
+                >
+                  {t('cancelled')}
                 </TabsTrigger>
               </TabsList>
             </Tabs>

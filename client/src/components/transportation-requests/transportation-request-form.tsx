@@ -108,7 +108,6 @@ export default function TransportationRequestForm({
         : `/api/orders/${orderId}/transportation-requests`;
       const method = requestId ? 'PATCH' : 'POST';
 
-
       const response = await apiRequest(method, endpoint, data);
       return response.json();
     },
@@ -287,9 +286,11 @@ export default function TransportationRequestForm({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="pending_approval">{t('pending_approval')}</SelectItem>
+                      <SelectItem value="pending">{t('pending')}</SelectItem>
                       <SelectItem value="accepted">{t('accepted')}</SelectItem>
                       <SelectItem value="rejected">{t('rejected')}</SelectItem>
+                      <SelectItem value="completed">{t('completed')}</SelectItem>
+                      <SelectItem value="cancelled">{t('cancelled')}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
