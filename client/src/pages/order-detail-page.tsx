@@ -8,7 +8,8 @@ import { Order, Client, Route, Carrier, Vehicle } from "@shared/schema";
 import { formatCurrency, formatDate, getStatusColors } from "@/lib/utils";
 import RouteForm from "@/components/routes/route-form";
 import RouteCard from "@/components/routes/route-card";
-import TransportationRequestList from "@/components/transportation-requests/transportation-request-list";
+import { TransportationRequestList } from "@/components/transportation-requests/transportation-request-list";
+import { Plus } from "lucide-react";
 import { 
   Loader2,
   ArrowLeft,
@@ -556,6 +557,14 @@ export default function OrderDetailPage() {
           </TabsContent>
 
           <TabsContent value="transportation" className="mt-6">
+            <div className="mb-4">
+              <Link href={`/orders/${order.id}/transportation-requests/create`}>
+                <Button variant="ghost">
+                  <Plus className="mr-2 h-4 w-4" />
+                  {t('createTransportationRequest')}
+                </Button>
+              </Link>
+            </div>
             <TransportationRequestList orderId={order.id} />
           </TabsContent>
         </Tabs>

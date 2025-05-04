@@ -31,6 +31,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
   const navItems = [
     { path: "/", icon: <Home className="h-5 w-5" />, text: t("dashboard") },
     { path: "/orders", icon: <FileText className="h-5 w-5" />, text: t("orders") },
+    { path: "/transportation-requests", icon: <Truck className="h-5 w-5" />, text: t("transportationRequests") },
     { path: "/routes", icon: <Map className="h-5 w-5" />, text: t("routes") },
     { path: "/clients", icon: <Users className="h-5 w-5" />, text: t("clients") },
     { path: "/carriers", icon: <Truck className="h-5 w-5" />, text: t("carriers") },

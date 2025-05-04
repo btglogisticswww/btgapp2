@@ -21,6 +21,10 @@ import CarriersPage from "@/pages/carriers-page";
 import CreateCarrierPage from "@/pages/create-carrier-page";
 import EditCarrierPage from "@/pages/edit-carrier-page";
 import AddRoutePage from "@/pages/add-route-page";
+import TransportationRequestsPage from "@/pages/transportation-requests-page";
+import TransportationRequestDetailPage from "@/pages/transportation-request-detail-page";
+import CreateTransportationRequestPage from "@/pages/create-transportation-request-page";
+import EditTransportationRequestPage from "@/pages/edit-transportation-request-page";
 
 function Router() {
   return (
@@ -40,6 +44,11 @@ function Router() {
       <ProtectedRoute path="/carriers/create" component={CreateCarrierPage} />
       <ProtectedRoute path="/carriers/:id/edit" component={EditCarrierPage} />
       <ProtectedRoute path="/orders/:id/add-route" component={AddRoutePage} />
+      <ProtectedRoute path="/transportation-requests" component={TransportationRequestsPage} />
+      <ProtectedRoute path="/transportation-requests/create" component={CreateTransportationRequestPage} />
+      <ProtectedRoute path="/transportation-requests/:id" component={TransportationRequestDetailPage} />
+      <ProtectedRoute path="/transportation-requests/:id/edit" component={EditTransportationRequestPage} />
+      <ProtectedRoute path="/orders/:orderId/transportation-requests/create" component={CreateTransportationRequestPage} />
       <Route component={NotFound} />
     </Switch>
   );

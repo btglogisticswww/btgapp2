@@ -1,58 +1,91 @@
-import { useQuery } from "@tanstack/react-query";
-import { Link, useRoute } from "wouter";
-import { Helmet } from "react-helmet-async";
+import { useRoute, Link } from "wouter";
 import { useLanguage } from "@/hooks/use-language";
-import { ArrowLeft, Edit, Loader2 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 import MainLayout from "@/components/layout/MainLayout";
+import { TransportationRequest, Order, Carrier } from "@shared/schema";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TransportationRequest } from "@shared/schema";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getStatusColor } from "@/lib/utils";
 import { formatDate, formatPrice } from "@/lib/formatters";
+import { ArrowLeft, Calendar, FileEdit, FileText, TruckIcon, MapPin, DollarSign, MessageCircle } from "lucide-react";
 
 export default function TransportationRequestDetailPage() {
   const { t } = useLanguage();
-  const [, params] = useRoute("/transportation-requests/:id");
-  const id = params?.id ? parseInt(params.id) : undefined;
-  
-  const { data: transportationRequest, isLoading } = useQuery<TransportationRequest>({
-    queryKey: [`/api/transportation-requests/${id}`],
-    enabled: !!id,
+  const [matched, params] = useRoute("/transportation-requests/:id");
+  const requestId = params?.id ? parseInt(params.id) : 0;
+
+  const { data: request, isLoading: isLoadingRequest } = useQuery<TransportationRequest>({
+    queryKey: ["/api/transportation-requests", requestId],
+    queryFn: async () => {
+      const response = await fetch(`/api/transportation-requests/${requestId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch transportation request");
+      }
+      return await response.json();
+    },
+    enabled: !!requestId,
   });
 
-  const { data: order } = useQuery({
-    queryKey: [`/api/orders/${transportationRequest?.orderId}`],
-    enabled: !!transportationRequest?.orderId,
+  const { data: order, isLoading: isLoadingOrder } = useQuery<Order>({
+    queryKey: ["/api/orders", request?.orderId],
+    queryFn: async () => {
+      const response = await fetch(`/api/orders/${request?.orderId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch order");
+      }
+      return await response.json();
+    },
+    enabled: !!request?.orderId,
   });
 
-  const { data: carrier } = useQuery({
-    queryKey: [`/api/carriers/${transportationRequest?.carrierId}`],
-    enabled: !!transportationRequest?.carrierId,
+  const { data: carrier, isLoading: isLoadingCarrier } = useQuery<Carrier>({
+    queryKey: ["/api/carriers", request?.carrierId],
+    queryFn: async () => {
+      const response = await fetch(`/api/carriers/${request?.carrierId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch carrier");
+      }
+      return await response.json();
+    },
+    enabled: !!request?.carrierId,
   });
+
+  const isLoading = isLoadingRequest || isLoadingOrder || isLoadingCarrier;
 
   if (isLoading) {
     return (
       <MainLayout>
-        <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center">
-          <Loader2 className="h-8 w-8 animate-spin text-border" />
+        <Helmet>
+          <title>{t("transportationRequestDetails")} | BTG Logistics</title>
+        </Helmet>
+        <div className="flex items-center justify-center min-h-[70vh]">
+          <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
         </div>
       </MainLayout>
     );
   }
 
-  if (!transportationRequest) {
+  if (!request) {
     return (
       <MainLayout>
-        <div className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center">
-          <h2 className="text-xl font-semibold mb-2">{t("error")}</h2>
-          <p className="text-muted-foreground mb-4">{t("transportation_request_not_found")}</p>
+        <Helmet>
+          <title>{t("transportationRequestDetails")} | BTG Logistics</title>
+        </Helmet>
+        <div className="p-6">
           <Link href="/transportation-requests">
-            <Button>
+            <Button variant="ghost" className="mb-6">
               <ArrowLeft className="mr-2 h-4 w-4" />
               {t("back")}
             </Button>
           </Link>
+          <Card>
+            <CardContent className="p-6 text-center">
+              <p>{t("noData")}</p>
+              <p>{t("Transportation request not found")}</p>
+            </CardContent>
+          </Card>
         </div>
       </MainLayout>
     );
@@ -61,99 +94,115 @@ export default function TransportationRequestDetailPage() {
   return (
     <MainLayout>
       <Helmet>
-        <title>{t("transportationRequests")} #{transportationRequest.id} | BTG+ Logistics</title>
+        <title>
+          {t("transportationRequestDetails")} #{request.id} | BTG Logistics
+        </title>
       </Helmet>
-      
-      <div className="container mx-auto p-4">
+      <div className="p-6">
         <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center">
+          <div className="flex items-center gap-4">
             <Link href="/transportation-requests">
-              <Button variant="ghost" size="icon" className="mr-2">
-                <ArrowLeft className="h-5 w-5" />
+              <Button variant="ghost">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                {t("back")}
               </Button>
             </Link>
             <h1 className="text-2xl font-bold">
-              {t("transportationRequests")} #{transportationRequest.id}
+              {t("transportationRequestDetails")} #{request.id}
             </h1>
+            <Badge
+              variant="outline"
+              className={`${getStatusColor(request.status)}`}
+            >
+              {t(request.status)}
+            </Badge>
           </div>
-          <Link href={`/transportation-requests/${transportationRequest.id}/edit`}>
-            <Button>
-              <Edit className="mr-2 h-4 w-4" />
-              {t("edit")}
-            </Button>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link href={`/transportation-requests/${request.id}/edit`}>
+              <Button variant="ghost">
+                <FileEdit className="mr-2 h-4 w-4" />
+                {t("edit")}
+              </Button>
+            </Link>
+          </div>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="col-span-1 md:col-span-2">
-            <CardHeader>
-              <CardTitle>{t("requestDetails")}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("status")}</p>
-                    <Badge variant={getStatusColor(transportationRequest.status)}>
-                      {t(transportationRequest.status)}
-                    </Badge>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("deadline")}</p>
-                    <p className="font-medium">{formatDate(transportationRequest.deadline)}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("price")}</p>
-                    <p className="font-medium">{formatPrice(transportationRequest.price)}</p>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("createDate")}</p>
-                    <p className="font-medium">{formatDate(transportationRequest.createdAt)}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("updateDate")}</p>
-                    <p className="font-medium">{formatDate(transportationRequest.updatedAt)}</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
-              <CardTitle>{t("relatedInformation")}</CardTitle>
+              <CardTitle>{t("generalInfo")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">{t("orderLabel")}</p>
-                {order ? (
-                  <Link href={`/orders/${order.id}`}>
-                    <Button variant="link" className="p-0 h-auto font-medium">
-                      {t("orderLabel")} #{order.id}
-                    </Button>
-                  </Link>
-                ) : (
-                  <p className="text-sm">{t("loading")}...</p>
-                )}
+              <div className="flex items-center">
+                <TruckIcon className="h-4 w-4 mr-2 text-muted-foreground" />
+                <span className="text-muted-foreground mr-1">{t("carrier")}:</span>
+                <span>{carrier?.name || t("unknown")}</span>
               </div>
-              
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">{t("carrier")}</p>
-                {carrier ? (
-                  <Link href={`/carriers/${carrier.id}`}>
-                    <Button variant="link" className="p-0 h-auto font-medium">
-                      {carrier.name}
-                    </Button>
-                  </Link>
-                ) : (
-                  <p className="text-sm">{t("loading")}...</p>
-                )}
+              <div className="flex items-center">
+                <FileText className="h-4 w-4 mr-2 text-muted-foreground" />
+                <span className="text-muted-foreground mr-1">{t("orderLabel")}:</span>
+                <Link href={`/orders/${request.orderId}`} className="text-primary hover:underline">
+                  #{request.orderId} - {order?.orderNumber || ""}
+                </Link>
+              </div>
+              <div className="flex items-center">
+                <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
+                <span className="text-muted-foreground mr-1">{t("deadline")}:</span>
+                <span>{formatDate(request.deadline)}</span>
+              </div>
+              <div className="flex items-center">
+                <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
+                <span className="text-muted-foreground mr-1">{t("price")}:</span>
+                <span>{formatPrice(request.price)}</span>
               </div>
             </CardContent>
           </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("orderDetails")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {order ? (
+                <>
+                  <div className="flex items-center">
+                    <FileText className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t("orderNumber")}:</span>
+                    <span>{order.orderNumber}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t("origin")}:</span>
+                    <span>{order.originAddress}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="text-muted-foreground mr-1">{t("destination")}:</span>
+                    <span>{order.destinationAddress}</span>
+                  </div>
+                </>
+              ) : (
+                <div className="text-muted-foreground text-center py-4">
+                  {t("orderNotFound")}
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </div>
+
+        {request.notes && (
+          <Card className="mt-6">
+            <CardHeader>
+              <CardTitle>{t("notes")}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-start">
+                <MessageCircle className="h-4 w-4 mr-2 text-muted-foreground mt-1" />
+                <p className="whitespace-pre-wrap">{request.notes}</p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </MainLayout>
   );

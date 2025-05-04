@@ -1,159 +1,66 @@
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { useLanguage } from '@/hooks/use-language';
-import { TransportationRequest } from '@shared/schema';
-import TransportationRequestCard from './transportation-request-card';
-import TransportationRequestForm from './transportation-request-form';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Plus, Loader2 } from 'lucide-react';
+import { useQuery } from "@tanstack/react-query";
+import { useLanguage } from "@/hooks/use-language";
+import { TransportationRequest } from "@shared/schema";
+import TransportationRequestCard from "./transportation-request-card";
 
-type TransportationRequestListProps = {
-  orderId: number;
-};
+export interface TransportationRequestListProps {
+  transportationRequests?: TransportationRequest[];
+  orderId?: number;
+  isStandalone?: boolean;
+}
 
-export default function TransportationRequestList({ orderId }: TransportationRequestListProps) {
+export function TransportationRequestList({
+  transportationRequests,
+  orderId,
+  isStandalone = false
+}: TransportationRequestListProps) {
   const { t } = useLanguage();
-  const [isAddingRequest, setIsAddingRequest] = useState(false);
-  const [editingRequestId, setEditingRequestId] = useState<number | null>(null);
-  const [activeTab, setActiveTab] = useState('all');
 
-  // Fetch transportation requests for this order
-  const { data: requests, isLoading, refetch } = useQuery<TransportationRequest[]>({
-    queryKey: ['/api/orders', orderId, 'transportation-requests'],
+  // If transportationRequests is provided, use it directly
+  // Otherwise, fetch transportation requests for the given orderId
+  const { data: fetchedRequests, isLoading } = useQuery<TransportationRequest[]>({
+    queryKey: ["/api/transportation-requests", orderId ? { orderId } : null],
     queryFn: async () => {
-      const response = await fetch(`/api/orders/${orderId}/transportation-requests`);
+      const url = orderId
+        ? `/api/orders/${orderId}/transportation-requests`
+        : "/api/transportation-requests";
+      const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Failed to fetch transportation requests');
+        throw new Error("Failed to fetch transportation requests");
       }
-      return response.json();
+      return await response.json();
     },
-    enabled: !!orderId,
+    enabled: !transportationRequests && !!orderId,
   });
 
-  // Filter requests by status
-  const filteredRequests = requests?.filter(request => {
-    if (activeTab === 'all') return true;
-    if (activeTab === 'pending') return request.status === 'pending';
-    if (activeTab === 'accepted') return request.status === 'accepted';
-    if (activeTab === 'rejected') return request.status === 'rejected';
-    if (activeTab === 'completed') return request.status === 'completed';
-    if (activeTab === 'cancelled') return request.status === 'cancelled';
-    return true;
-  });
+  // Use provided transportationRequests or fetchedRequests
+  const requests = transportationRequests || fetchedRequests || [];
 
-  // Handle form success
-  const handleFormSuccess = () => {
-    setIsAddingRequest(false);
-    setEditingRequestId(null);
-    refetch();
-  };
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center p-8">
+        <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
+      </div>
+    );
+  }
 
-  // Handle edit button click
-  const handleEdit = (id: number) => {
-    setEditingRequestId(id);
-    setIsAddingRequest(false);
-  };
+  if (requests.length === 0) {
+    return (
+      <div className="text-center p-8 border border-dashed rounded-lg">
+        <p className="text-muted-foreground mb-4">{t("no_transportation_requests")}</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-bold">{t('transportationRequests')}</h2>
-        {!isAddingRequest && !editingRequestId && (
-          <Button onClick={() => setIsAddingRequest(true)}>
-            <Plus className="mr-2 h-4 w-4" />
-            {t('addTransportationRequest')}
-          </Button>
-        )}
-      </div>
-
-      {isAddingRequest && (
-        <TransportationRequestForm
-          orderId={orderId}
-          onSuccess={handleFormSuccess}
-          onCancel={() => setIsAddingRequest(false)}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {requests.map((request) => (
+        <TransportationRequestCard
+          key={request.id}
+          transportationRequest={request}
+          isStandalone={isStandalone}
         />
-      )}
-
-      {editingRequestId && (
-        <TransportationRequestForm
-          orderId={orderId}
-          requestId={editingRequestId}
-          onSuccess={handleFormSuccess}
-          onCancel={() => setEditingRequestId(null)}
-        />
-      )}
-
-      {!isAddingRequest && !editingRequestId && (
-        <Card>
-          <CardHeader className="pb-0">
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="w-full justify-start border-b border-border">
-                <TabsTrigger 
-                  className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" 
-                  value="all"
-                >
-                  {t('all')}
-                </TabsTrigger>
-                <TabsTrigger 
-                  className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" 
-                  value="pending"
-                >
-                  {t('pending')}
-                </TabsTrigger>
-                <TabsTrigger 
-                  className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" 
-                  value="accepted"
-                >
-                  {t('accepted')}
-                </TabsTrigger>
-                <TabsTrigger 
-                  className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" 
-                  value="rejected"
-                >
-                  {t('rejected')}
-                </TabsTrigger>
-                <TabsTrigger 
-                  className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" 
-                  value="completed"
-                >
-                  {t('completed')}
-                </TabsTrigger>
-                <TabsTrigger 
-                  className="data-[state=active]:border-b-2 data-[state=active]:border-sidebar-primary data-[state=active]:text-sidebar-primary data-[state=inactive]:text-muted-foreground" 
-                  value="cancelled"
-                >
-                  {t('cancelled')}
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </CardHeader>
-
-          <CardContent className="pt-4">
-            {isLoading ? (
-              <div className="flex justify-center p-4">
-                <Loader2 className="h-6 w-6 animate-spin" />
-              </div>
-            ) : filteredRequests && filteredRequests.length > 0 ? (
-              <div className="space-y-4">
-                {filteredRequests.map((request) => (
-                  <TransportationRequestCard
-                    key={request.id}
-                    request={request}
-                    onEdit={handleEdit}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center p-4">
-                <p className="text-muted-foreground">{t('noData')}</p>
-                <p className="text-sm text-muted-foreground">{t('noTransportationRequests')}</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      )}
+      ))}
     </div>
   );
 }
