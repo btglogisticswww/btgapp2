@@ -30,13 +30,10 @@ type TransportationRequestFormProps = {
 const formSchema = z.object({
   orderId: z.number(),
   carrierId: z.number(),
-  carrierName: z.string().optional(),
-  requestNumber: z.string().min(3, 'Minimum 3 characters'),
-  description: z.string().min(3, 'Minimum 3 characters'),
+  vehicleId: z.number().optional(),
   price: z.coerce.number().positive('Price must be positive'),
   status: z.string(),
-  requestDate: z.date(),
-  notes: z.string().optional(),
+  deadline: z.date().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -56,12 +53,10 @@ export default function TransportationRequestForm({
     defaultValues: {
       orderId,
       carrierId: 0,
-      requestNumber: '',
-      description: '',
+      vehicleId: undefined,
       price: 0,
-      requestDate: new Date(),
-      status: 'pending_approval',
-      notes: '',
+      status: 'pending',
+      deadline: new Date(),
     },
   });
 
@@ -97,13 +92,10 @@ export default function TransportationRequestForm({
       form.reset({
         orderId: requestData.orderId || orderId,
         carrierId: requestData.carrierId,
-        carrierName: requestData.carrierName,
-        requestNumber: requestData.requestNumber,
-        description: requestData.description || '',
+        vehicleId: requestData.vehicleId,
         price: Number(requestData.price),
-        requestDate: new Date(requestData.requestDate),
         status: requestData.status,
-        notes: requestData.notes || '',
+        deadline: requestData.deadline ? new Date(requestData.deadline) : undefined,
       });
     }
   }, [requestData, form, orderId]);
@@ -115,14 +107,7 @@ export default function TransportationRequestForm({
         ? `/api/transportation-requests/${requestId}`
         : `/api/orders/${orderId}/transportation-requests`;
       const method = requestId ? 'PATCH' : 'POST';
-      
-      // Get carrier name if available
-      if (carriers) {
-        const selectedCarrier = carriers.find(c => c.id === data.carrierId);
-        if (selectedCarrier) {
-          data.carrierName = selectedCarrier.name;
-        }
-      }
+
 
       const response = await apiRequest(method, endpoint, data);
       return response.json();
@@ -192,28 +177,44 @@ export default function TransportationRequestForm({
               )}
             />
 
-            {/* Request Number */}
+            {/* Vehicle Selection */}
             <FormField
               control={form.control}
-              name="requestNumber"
+              name="vehicleId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('requestNumber')}</FormLabel>
-                  <FormControl>
-                    <Input disabled={isLoading} {...field} />
-                  </FormControl>
+                  <FormLabel>{t('selectVehicle')}</FormLabel>
+                  <Select
+                    disabled={isLoading}
+                    value={field.value ? field.value.toString() : undefined}
+                    onValueChange={(value) => field.onChange(parseInt(value))}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder={t('selectVehicle')} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="0">{t('noVehicle')}</SelectItem>
+                      {carriers?.find(c => c.id === form.getValues().carrierId)?.vehicles?.map((vehicle) => (
+                        <SelectItem key={vehicle.id} value={vehicle.id.toString()}>
+                          {vehicle.type} - {vehicle.regNumber}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            {/* Request Date */}
+            {/* Deadline Date */}
             <FormField
               control={form.control}
-              name="requestDate"
+              name="deadline"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>{t('requestDate')}</FormLabel>
+                  <FormLabel>{t('deadline')}</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
@@ -296,20 +297,7 @@ export default function TransportationRequestForm({
               )}
             />
 
-            {/* Description */}
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('description')}</FormLabel>
-                  <FormControl>
-                    <Textarea disabled={isLoading} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
           </CardContent>
 
           <CardFooter className="flex justify-between">

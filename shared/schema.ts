@@ -167,14 +167,10 @@ export const transportationRequests = pgTable("transportation_requests", {
   id: serial("id").primaryKey(),
   orderId: integer("order_id").references(() => orders.id).notNull(),
   carrierId: integer("carrier_id").references(() => carriers.id).notNull(),
-  requestNumber: text("request_number").notNull(),
-  description: text("description"),
-  cargoDetails: text("cargo_details"),
+  vehicleId: integer("vehicle_id").references(() => vehicles.id),
   price: decimal("price", { precision: 10, scale: 2 }),
   status: text("status").notNull().default("pending"),
-  requestDate: date("request_date").notNull(),
-  deliveryDate: date("delivery_date"),
-  notes: text("notes"),
+  deadline: date("deadline"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -252,11 +248,9 @@ export const taskValidationSchema = z.object({
 export const transportationRequestValidationSchema = z.object({
   orderId: z.number(),
   carrierId: z.number(),
-  requestNumber: z.string().min(5, "Request number must be at least 5 characters"),
+  vehicleId: z.number().optional(),
   status: z.string().default("pending"),
-  requestDate: z.date(),
-  description: z.string().optional(),
-  cargoDetails: z.string().optional(),
+  deadline: z.date().optional(),
   price: z.number().optional()
 });
 
@@ -345,6 +339,10 @@ export const transportationRequestsRelations = relations(transportationRequests,
   carrier: one(carriers, {
     fields: [transportationRequests.carrierId],
     references: [carriers.id],
+  }),
+  vehicle: one(vehicles, {
+    fields: [transportationRequests.vehicleId],
+    references: [vehicles.id],
   }),
 }));
 
